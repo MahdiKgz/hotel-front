@@ -3,3 +3,7 @@
 .container {
   @apply mx-auto!;
 }
+
+* {
+  direction: rtl !important;
+}

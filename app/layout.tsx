@@ -1,4 +1,4 @@
-import Header from "@/widgets/landing/Header";
+import Providers from "@/shared/configs/Providers";
 import "./globals.css";
 
 export default function RootLayout({
@@ -8,10 +8,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="w-full h-full">
-        <Header />
-        {children}
-      </body>
+      <Providers>
+        <body className="w-full h-full">{children}</body>
+      </Providers>
     </html>
   );
 }
