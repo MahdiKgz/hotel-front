@@ -1,9 +1,15 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: ShabnamFarsi;
+  src: url("../public/Shabnam-FD.ttf") format("ttf");
+}
+
 .container {
   @apply mx-auto!;
 }
 
-* {
+body {
   direction: rtl !important;
+  font-family: ShabnamFarsi !important;
 }
