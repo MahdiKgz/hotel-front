@@ -1,6 +1,6 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { setUserProfile } from "../slices/Profile.slice";
+import { clearUserProfile, setUserProfile } from "../slices/Profile.slice";
 import { toast } from "react-toastify";
 
 export const authAPI = createApi({
@@ -55,6 +55,8 @@ export const authAPI = createApi({
           dispatch(setUserProfile(data.data.user));
         } catch {
           toast.error("در دریافت اطلاعات پروفایل مشکلی وجود دارد.");
+          dispatch(clearUserProfile());
+          window.location.href = "/login";
         }
       },
     }),
