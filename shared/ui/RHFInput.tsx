@@ -28,7 +28,7 @@ export const RHFInput = ({
       control={control}
       rules={rules}
       render={({ field, fieldState }) => (
-        <>
+        <div className="w-full flex flex-col items-start gap-1">
           <InputComponent
             {...field}
             {...rest}
@@ -41,7 +41,7 @@ export const RHFInput = ({
               {fieldState.error.message}
             </span>
           )}
-        </>
+        </div>
       )}
     />
   );

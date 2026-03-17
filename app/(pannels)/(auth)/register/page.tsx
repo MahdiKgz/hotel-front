@@ -8,8 +8,8 @@ function Register() {
       <div className="register-form__header w-full flex flex-col items-center justify-center gap-2">
         <h1 className="font-bold text-[18px]">ساخت حساب کاربری جدید</h1>
         <div className="flex items-center gap-1">
-          <span className="font-semibold text-sm">حساب کاربری دارید؟</span>
-          <Link className="font-medium text-sm text-lime-500!" href="/login">
+          <span className="font-semibold text-xs">حساب کاربری دارید؟</span>
+          <Link className="font-medium text-xs text-blue-500!" href="/login">
             ورود
           </Link>
         </div>
