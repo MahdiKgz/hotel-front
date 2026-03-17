@@ -4,6 +4,7 @@ import { Button, Drawer, Popconfirm } from "antd";
 import { useDispatch } from "react-redux";
 import { clearUserProfile } from "@/entities/User/slices/Profile.slice";
 import { toast } from "react-toastify";
+import { RiLogoutBoxRLine, RiMenu2Line } from "react-icons/ri";
 
 function HeaderActions() {
   const [open, setOpen] = useState<boolean>(false);
@@ -18,8 +19,13 @@ function HeaderActions() {
   };
   return (
     <div className="flex items-center gap-1.5">
-      <Button className="block md:hidden!" onClick={() => setOpen(() => true)}>
-        Drawer
+      <Button
+        variant="text"
+        color="default"
+        className="block md:hidden!"
+        onClick={() => setOpen(() => true)}
+      >
+        <RiMenu2Line />
       </Button>
       <Popconfirm
         title="آیا مطمئن هستید؟"
@@ -27,8 +33,11 @@ function HeaderActions() {
         onConfirm={handleConfirmLogout}
         okText="خروج"
         cancelText="انصراف"
+        okType="danger"
       >
-        <Button>Exit</Button>
+        <Button variant="text" color="danger" className="rotate-180">
+          <RiLogoutBoxRLine />
+        </Button>
       </Popconfirm>
       <Drawer
         open={open}

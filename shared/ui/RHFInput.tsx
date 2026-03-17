@@ -8,6 +8,7 @@ interface RHFInputProps {
   size?: "small" | "middle" | "large";
   isPassword?: boolean;
   [key: string]: unknown;
+  icon: React.ReactNode;
 }
 
 export const RHFInput = ({
@@ -16,6 +17,7 @@ export const RHFInput = ({
   size = "large",
   isPassword = false,
   rules = {},
+  icon,
   ...rest
 }: RHFInputProps) => {
   const { control } = useFormContext();
@@ -35,6 +37,7 @@ export const RHFInput = ({
             placeholder={placeholder}
             size={size}
             status={fieldState.error ? "error" : undefined}
+            prefix={icon}
           />
           {fieldState.error && (
             <span className="w-full text-red-500 text-xs text-right">
