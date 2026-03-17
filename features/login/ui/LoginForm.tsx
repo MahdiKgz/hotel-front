@@ -3,14 +3,22 @@
 import React from "react";
 import Link from "next/link";
 import useLogin from "../hooks/useLogin";
-import { Button } from "antd";
+import { Button, Spin } from "antd";
 import { FormProvider } from "react-hook-form";
 import PasswordMethodLogin from "./PasswordMethodLogin";
 import OTPMethodLogin from "./OTPMethodLogin";
 
 function LoginForm() {
-  const { mode, setMode, methods, handleSubmit, onSubmit, shouldDisableForm } =
-    useLogin();
+  const {
+    mode,
+    setMode,
+    methods,
+    handleSubmit,
+    onSubmit,
+    shouldDisableForm,
+    isVerifyingOTP,
+    isSubmittingRequest,
+  } = useLogin();
   return (
     <FormProvider {...methods}>
       <form
@@ -40,6 +48,7 @@ function LoginForm() {
           htmlType="submit"
           disabled={shouldDisableForm}
         >
+          {isSubmittingRequest || (isVerifyingOTP && <Spin />)}
           ورود به حساب
         </Button>
       </form>

@@ -28,8 +28,8 @@ export default function useLogin() {
     formState: { isValid },
   } = methods;
 
-  const [verifyOTP] = useVerifyOTPMutation();
-  const [login] = useLoginMutation();
+  const [verifyOTP, { isLoading: isVerifyingOTP }] = useVerifyOTPMutation();
+  const [login, { isLoading: isSubmittingRequest }] = useLoginMutation();
 
   let shouldDisableForm;
 
@@ -80,5 +80,7 @@ export default function useLogin() {
     handleSubmit,
     onSubmit,
     shouldDisableForm,
+    isVerifyingOTP,
+    isSubmittingRequest,
   };
 }

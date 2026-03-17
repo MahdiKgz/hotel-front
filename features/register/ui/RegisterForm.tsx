@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { RHFInput } from "@/shared/ui/RHFInput";
-import { Button } from "antd";
+import { Button, Spin } from "antd";
 import { FormProvider } from "react-hook-form";
 import {
   RiUserLine,
@@ -11,7 +11,13 @@ import {
 import useRegister from "../hooks/useRegister";
 
 function RegisterForm() {
-  const { methods, handleSubmit, onSubmit, shouldDisableForm } = useRegister();
+  const {
+    methods,
+    handleSubmit,
+    onSubmit,
+    shouldDisableForm,
+    isRequestSubmitting,
+  } = useRegister();
 
   return (
     <FormProvider {...methods}>
@@ -48,6 +54,7 @@ function RegisterForm() {
           className="w-full"
           disabled={shouldDisableForm}
         >
+          {isRequestSubmitting && <Spin />}
           ایجاد حساب
         </Button>
       </form>

@@ -48,5 +48,6 @@ export default function useRegister() {
     shouldDisableForm,
     handleSubmit,
     onSubmit,
+    isRequestSubmitting,
   };
 }
