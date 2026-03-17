@@ -7,7 +7,7 @@ import { RootState } from "@/shared/configs/store";
 function UserAvatar() {
   const profile = useSelector((state: RootState) => state.profile);
 
-  const avatarUrl = profile.avatar || undefined;
+  const avatarUrl = "http://localhost:4000/" + profile.avatar || undefined;
   const fallbackName =
     profile.fullName?.split(" ").slice(0, 2).join(" ") || "U";
 

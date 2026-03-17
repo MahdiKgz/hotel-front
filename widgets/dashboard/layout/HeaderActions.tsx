@@ -14,6 +14,7 @@ function HeaderActions() {
     dispatch(clearUserProfile());
     sessionStorage.removeItem("authToken");
     toast.success("از حساب خارج شدید.");
+    window.location.href = "/login";
   };
   return (
     <div className="flex items-center gap-1.5">
