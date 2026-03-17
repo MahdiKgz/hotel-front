@@ -1,4 +1,5 @@
 import HeaderActions from "@/widgets/dashboard/layout/HeaderActions";
+import Sidebar from "@/widgets/dashboard/layout/Sidebar";
 import UserAvatar from "@/widgets/dashboard/layout/UserAvatar";
 import React from "react";
 
@@ -14,10 +15,8 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
         </div>
       </div>
       <div className="dashboard-content container fixed top-28 inset-x-0 flex items-start gap-6">
-        <div className="w-75 h-[85vh] hidden md:block border-2 border-dashed border-mist-600/40 rounded p-4">
-          sidebar
-        </div>
-        <div className="w-full h-[85vh] border-2 border-dashed border-mist-600/40 rounded p-4">
+        <Sidebar />
+        <div className="w-full h-[85vh] border-2 border-dashed border-mist-600/40 rounded p-4 overflow-y-auto">
           {children}
         </div>
       </div>

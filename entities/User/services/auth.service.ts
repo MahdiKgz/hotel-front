@@ -7,8 +7,9 @@ export const authAPI = createApi({
   reducerPath: "authAPI",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:4000/api/v1",
-    prepareHeaders: (headers) => {
-      const token = sessionStorage.getItem("authToken");
+    prepareHeaders: (headers, { getState }) => {
+      const token =
+        (getState() as any).auth?.token || sessionStorage.getItem("authToken");
       if (token) {
         headers.set("authorization", `Bearer ${token}`);
       }
@@ -46,10 +47,8 @@ export const authAPI = createApi({
       }),
     }),
     getMe: builder.query({
-      query: () => ({
-        url: "/auth/me",
-      }),
-      async onQueryStarted(ـ, { dispatch, queryFulfilled }) {
+      query: () => "/auth/me",
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
         try {
           const { data } = await queryFulfilled;
           dispatch(setUserProfile(data.data.user));
@@ -58,6 +57,17 @@ export const authAPI = createApi({
           dispatch(clearUserProfile());
           window.location.href = "/login";
         }
+      },
+    }),
+    uploadAvatar: builder.mutation({
+      query: (file: File) => {
+        const formData = new FormData();
+        formData.append("avatar", file);
+        return {
+          url: "/auth/avatar",
+          method: "POST",
+          body: formData,
+        };
       },
     }),
   }),
@@ -69,4 +79,5 @@ export const {
   useVerifyOTPMutation,
   useLoginMutation,
   useGetMeQuery,
+  useUploadAvatarMutation,
 } = authAPI;

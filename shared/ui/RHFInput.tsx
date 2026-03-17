@@ -8,7 +8,8 @@ interface RHFInputProps {
   size?: "small" | "middle" | "large";
   isPassword?: boolean;
   [key: string]: unknown;
-  icon: React.ReactNode;
+  icon?: React.ReactNode;
+  isTextArea?: boolean;
 }
 
 export const RHFInput = ({
@@ -17,12 +18,17 @@ export const RHFInput = ({
   size = "large",
   isPassword = false,
   rules = {},
+  isTextArea = false,
   icon,
   ...rest
 }: RHFInputProps) => {
   const { control } = useFormContext();
 
-  const InputComponent = isPassword ? Input.Password : Input;
+  const InputComponent = isPassword
+    ? Input.Password
+    : isTextArea
+      ? Input.TextArea
+      : Input;
 
   return (
     <Controller
