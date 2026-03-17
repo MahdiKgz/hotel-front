@@ -39,12 +39,34 @@ export default function useLogin() {
 
   const onSubmit = async (data: unknown) => {
     if (mode === "otp") {
-      await verifyOTP(data).unwrap();
-      toast.success("ورود موفقیت آمیز بود. خوش آمدید");
+      try {
+        await verifyOTP(data).unwrap();
+        toast.success("ورود موفقیت آمیز بود. خوش آمدید");
+        window.location.href = "/dashboard";
+      } catch (err) {
+        if (err.data.message === "Wrong or expired OTP") {
+          toast.error("رمز یکبار مصرف منقضی شده یا اشتباه است");
+        }
+        if (
+          err.data.message === "No such user is available , Register first !!"
+        ) {
+          toast.error("کاربری پیدا نشد. ابتدا در سایت ثبت نام کنید");
+        }
+      }
     }
     if (mode === "password") {
-      await login(data).unwrap();
-      toast.success("ورود موفقیت آمیز بود. خوش آمدید");
+      try {
+        await login(data).unwrap();
+        toast.success("ورود موفقیت آمیز بود. خوش آمدید");
+        window.location.href = "/dashboard";
+      } catch (err) {
+        if (err.data.message === "User not found !!") {
+          toast.error("کاربری با این شماره تلفن پیدا نشد");
+        }
+        if (err.data.message === "Username or password is incorrect !!") {
+          toast.error("نام کاربری یا رمز عبور اشتباه است.");
+        }
+      }
     }
   };
 

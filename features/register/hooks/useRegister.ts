@@ -9,7 +9,7 @@ export default function useRegister() {
   });
   const {
     handleSubmit,
-    formState: { isDirty, isValid },
+    formState: { isValid },
     reset,
   } = methods;
 
@@ -23,6 +23,7 @@ export default function useRegister() {
 
         sessionStorage.setItem("authToken", result.data.token);
         reset();
+        window.location.href = "/dashboard";
         return;
       }
     } catch (err) {

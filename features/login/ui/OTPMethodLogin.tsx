@@ -23,6 +23,11 @@ function OTPMethodLogin({ methods }) {
       if (error.data.message === "User not found !!") {
         toast.error("کاربری با این شماره تلفن وجود ندارد.");
       }
+      if (error.data.message.includes("OTP already sent")) {
+        toast.error(
+          "رمز یکبار مصرف برای شما ارسال شده. بعد از یک دقیقه مجدد تلاش کنید",
+        );
+      }
     }
   };
 
