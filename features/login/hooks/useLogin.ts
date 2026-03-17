@@ -40,8 +40,10 @@ export default function useLogin() {
   const onSubmit = async (data: unknown) => {
     if (mode === "otp") {
       try {
-        await verifyOTP(data).unwrap();
+        const { data: verifyOtpResponse } = await verifyOTP(data).unwrap();
+        console.log(verifyOtpResponse);
         toast.success("ورود موفقیت آمیز بود. خوش آمدید");
+        sessionStorage.setItem("authToken", verifyOtpResponse.token);
         window.location.href = "/dashboard";
       } catch (err) {
         if (err.data.message === "Wrong or expired OTP") {
@@ -56,8 +58,9 @@ export default function useLogin() {
     }
     if (mode === "password") {
       try {
-        await login(data).unwrap();
+        const { data: loginResponse } = await login(data).unwrap();
         toast.success("ورود موفقیت آمیز بود. خوش آمدید");
+        sessionStorage.setItem("authToken", loginResponse.token);
         window.location.href = "/dashboard";
       } catch (err) {
         if (err.data.message === "User not found !!") {
