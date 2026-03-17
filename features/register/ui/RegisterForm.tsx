@@ -14,11 +14,21 @@ function RegisterForm() {
         onSubmit={handleSubmit(onSubmit)}
         className="w-full flex flex-col items-center justify-center gap-4.5"
       >
-        <RHFInput name="fullName" placeholder="نام کامل خود را وارد کنید" />
-        <RHFInput name="phone" placeholder="شماره تلفن خود را وارد کنید" />
+        <RHFInput
+          name="fullName"
+          placeholder="نام کامل خود را وارد کنید"
+          rules={{ required: "نام کامل الزامیست." }}
+        />
+        <RHFInput
+          name="phone"
+          placeholder="شماره تلفن خود را وارد کنید"
+          rules={{ required: "شماره تلفن الزامیست." }}
+        />
+
         <RHFInput
           name="password"
           placeholder="رمز عبور خود را وارد کنید"
+          rules={{ required: "رمز عبور الزامیست." }}
           isPassword
         />
 

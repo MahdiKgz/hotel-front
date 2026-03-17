@@ -4,7 +4,9 @@ import { toast } from "react-toastify";
 import { useRegisterMutation } from "@/entities/User/services/auth.service";
 
 export default function useRegister() {
-  const methods = useForm();
+  const methods = useForm({
+    mode: "onBlur",
+  });
   const {
     handleSubmit,
     formState: { isDirty, isValid },
@@ -32,7 +34,7 @@ export default function useRegister() {
 
   let shouldDisableForm;
 
-  if (isDirty === false) {
+  if (isValid === false) {
     shouldDisableForm = true;
   }
 

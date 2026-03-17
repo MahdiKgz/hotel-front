@@ -15,6 +15,7 @@ export const RHFInput = ({
   placeholder,
   size = "large",
   isPassword = false,
+  rules = {},
   ...rest
 }: RHFInputProps) => {
   const { control } = useFormContext();
@@ -25,15 +26,22 @@ export const RHFInput = ({
     <Controller
       name={name}
       control={control}
+      rules={rules}
       render={({ field, fieldState }) => (
-        <InputComponent
-          {...field}
-          {...rest}
-          placeholder={placeholder}
-          size={size}
-          status={fieldState.error ? "error" : undefined}
-          className={fieldState.error ? "border-red-500!" : ""}
-        />
+        <>
+          <InputComponent
+            {...field}
+            {...rest}
+            placeholder={placeholder}
+            size={size}
+            status={fieldState.error ? "error" : undefined}
+          />
+          {fieldState.error && (
+            <span className="w-full text-red-500 text-xs text-right">
+              {fieldState.error.message}
+            </span>
+          )}
+        </>
       )}
     />
   );
