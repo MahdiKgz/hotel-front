@@ -1,5 +1,4 @@
 "use client";
-import { RootState } from "@/shared/configs/store";
 import { RHFInput } from "@/shared/ui/RHFInput";
 import { Button } from "antd";
 import React from "react";
@@ -42,7 +41,7 @@ function ProfileForm() {
           />
         </div>
 
-        <div className="flex justify-end pt-2">
+        <div className="flex justify-end pt-2 gap-3">
           <Button
             disabled={!isDirty}
             htmlType="submit"

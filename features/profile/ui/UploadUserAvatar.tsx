@@ -21,12 +21,6 @@ function UploadUserAvatar() {
         return Upload.LIST_IGNORE;
       }
 
-      const isLt2M = file.size / 1024 / 1024 < 2;
-      if (!isLt2M) {
-        message.error("حجم فایل نباید بیشتر از ۲ مگابایت باشد.");
-        return Upload.LIST_IGNORE;
-      }
-
       setFileList([file]); // فقط فایل خالص ذخیره می‌شود
       return Upload.LIST_IGNORE;
     },

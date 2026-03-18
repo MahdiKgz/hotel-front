@@ -83,6 +83,14 @@ export const authAPI = createApi({
       }),
       invalidatesTags: ["me"],
     }),
+    resetPassword: builder.mutation({
+      query: (payload) => ({
+        url: "/auth/reset-password",
+        method: "POST",
+        body: payload,
+      }),
+      invalidatesTags: ["me"],
+    }),
   }),
 });
 
@@ -94,4 +102,5 @@ export const {
   useGetMeQuery,
   useUploadAvatarMutation,
   useUpdateProfileMutation,
+  useResetPasswordMutation,
 } = authAPI;
