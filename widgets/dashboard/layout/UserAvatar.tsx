@@ -16,7 +16,7 @@ function UserAvatar() {
   return (
     <div className="flex items-center gap-3">
       <Avatar
-        size={32}
+        size={40}
         src={avatarUrl}
         alt={profile.fullName || "کاربر"}
         style={{ backgroundColor: "#1677ff" }}
