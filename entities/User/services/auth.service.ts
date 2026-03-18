@@ -57,7 +57,7 @@ export const authAPI = createApi({
         } catch {
           toast.error("در دریافت اطلاعات پروفایل مشکلی وجود دارد.");
           dispatch(clearUserProfile());
-          // window.location.href = "/login";
+          window.location.href = "/login";
         }
       },
       providesTags: ["me"],
