@@ -17,6 +17,8 @@ export const authAPI = createApi({
     },
   }),
 
+  tagTypes: ["me"],
+
   endpoints: (builder) => ({
     register: builder.mutation({
       query: (payload) => ({
@@ -55,9 +57,10 @@ export const authAPI = createApi({
         } catch {
           toast.error("در دریافت اطلاعات پروفایل مشکلی وجود دارد.");
           dispatch(clearUserProfile());
-          window.location.href = "/login";
+          // window.location.href = "/login";
         }
       },
+      providesTags: ["me"],
     }),
     uploadAvatar: builder.mutation({
       query: (file: File) => {
@@ -70,6 +73,14 @@ export const authAPI = createApi({
         };
       },
     }),
+    updateProfile: builder.mutation({
+      query: (payload) => ({
+        url: "/auth/update-profile",
+        method: "PUT",
+        body: payload,
+      }),
+      invalidatesTags: ["me"],
+    }),
   }),
 });
 
@@ -80,4 +91,5 @@ export const {
   useLoginMutation,
   useGetMeQuery,
   useUploadAvatarMutation,
+  useUpdateProfileMutation,
 } = authAPI;
