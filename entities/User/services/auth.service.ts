@@ -56,6 +56,7 @@ export const authAPI = createApi({
           dispatch(setUserProfile(data.data.user));
         } catch {
           toast.error("در دریافت اطلاعات پروفایل مشکلی وجود دارد.");
+          sessionStorage.removeItem("authToken");
           dispatch(clearUserProfile());
           window.location.href = "/login";
         }
@@ -72,6 +73,7 @@ export const authAPI = createApi({
           body: formData,
         };
       },
+      invalidatesTags: ["me"],
     }),
     updateProfile: builder.mutation({
       query: (payload) => ({

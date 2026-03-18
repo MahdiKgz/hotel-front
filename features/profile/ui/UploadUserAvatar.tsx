@@ -4,6 +4,7 @@ import type { UploadProps, UploadFile } from "antd";
 import React, { useState } from "react";
 import { CloudUploadOutlined, UploadOutlined } from "@ant-design/icons";
 import { useUploadAvatarMutation } from "@/entities/User/services/auth.service";
+import { toast } from "react-toastify";
 
 function UploadUserAvatar() {
   // تغییر نوع fileList به File[] برای دسترسی مستقیم به فایل اصلی
@@ -58,12 +59,11 @@ function UploadUserAvatar() {
 
     try {
       await uploadAvatar(previewFile).unwrap();
-      message.success("آواتار با موفقیت آپلود شد.");
+      toast.success("آواتار با موفقیت آپلود شد.");
       setFileList([]);
-      window.location.href = "/dashboard";
       return;
     } catch (error: any) {
-      message.error(error?.data?.message || "خطا در آپلود آواتار.");
+      toast.error(error?.data?.message || "خطا در آپلود آواتار.");
     }
   };
 
