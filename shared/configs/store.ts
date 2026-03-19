@@ -1,14 +1,18 @@
 import { authAPI } from "@/entities/User/services/auth.service";
 import { configureStore } from "@reduxjs/toolkit";
 import profileReducer from "@/entities/User/slices/Profile.slice";
+import { domainAPI } from "@/entities/Domain/services/domain.service";
 
 export const store = configureStore({
   reducer: {
     profile: profileReducer,
     [authAPI.reducerPath]: authAPI.reducer,
+    [domainAPI.reducerPath]: domainAPI.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authAPI.middleware),
+    getDefaultMiddleware()
+      .concat(authAPI.middleware)
+      .concat(domainAPI.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
