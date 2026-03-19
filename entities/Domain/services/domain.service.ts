@@ -27,7 +27,18 @@ export const domainAPI = createApi({
       }),
       invalidatesTags: ["amenities"],
     }),
+    removeAmenity: builder.mutation({
+      query: (id) => ({
+        url: `/domain/amenity/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["amenities"],
+    }),
   }),
 });
 
-export const { useGetAmenitiesQuery, useCreateNewAmenityMutation } = domainAPI;
+export const {
+  useGetAmenitiesQuery,
+  useCreateNewAmenityMutation,
+  useRemoveAmenityMutation,
+} = domainAPI;

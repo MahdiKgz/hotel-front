@@ -1,8 +1,22 @@
 import React from "react";
-import { useGetAmenitiesQuery } from "@/entities/Domain/services/domain.service";
+import {
+  useGetAmenitiesQuery,
+  useRemoveAmenityMutation,
+} from "@/entities/Domain/services/domain.service";
 import { Button, Popconfirm, Table, Tag } from "antd";
+import { initialValuesType } from "./AddOrEditDomainForm";
+import { toast } from "react-toastify";
 
 function DomainSubtable() {
+  const [removeAmenity] = useRemoveAmenityMutation();
+
+  const handleRemoveAmenity = async (id: number) => {
+    try {
+      await removeAmenity(id).unwrap();
+      toast.success("امکانات با موفقیت حذف شد");
+    } catch (err) {}
+  };
+
   const columns = [
     {
       title: "عنوان",
@@ -25,7 +39,7 @@ function DomainSubtable() {
       title: "عملیات",
       key: "actions",
       width: "33.33%",
-      render: (_, record) => (
+      render: (_: unknown, record: initialValuesType & { id: number }) => (
         <span className="flex gap-2">
           <button
             className="text-blue-600 hover:text-blue-800"
@@ -40,6 +54,7 @@ function DomainSubtable() {
             okText="حذف"
             cancelText="انصراف"
             okType="danger"
+            onConfirm={() => handleRemoveAmenity(record.id)}
           >
             <Button type="link" variant="outlined" danger>
               حذف

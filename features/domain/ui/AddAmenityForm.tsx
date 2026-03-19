@@ -3,7 +3,7 @@ import React from "react";
 import { RHFInput } from "@/shared/ui/RHFInput";
 import { FormProvider } from "react-hook-form";
 import useAddOrEditDomain from "../hooks/useAddDomain";
-import { Button, Switch } from "antd";
+import { Button } from "antd";
 import RHFSwitch from "@/shared/ui/RHFSwitch";
 
 function AddAmenityForm() {
