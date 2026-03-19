@@ -49,7 +49,6 @@ function UploadUserAvatar() {
     }
 
     const previewFile = fileList[0]; // الان از File[] است، پس undefined نیست
-    console.log("✅ File:", previewFile);
 
     try {
       await uploadAvatar(previewFile).unwrap();

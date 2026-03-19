@@ -3,6 +3,7 @@ import { Button, Modal } from "antd";
 import DomainSubtable from "./DomainSubtable";
 import AddOrEditDomainModal from "./AddOrEditDomainModal";
 import { TbCirclePlus } from "react-icons/tb";
+import { initialValuesType } from "./AddOrEditDomainForm";
 
 interface DomainSubtableModalProps {
   open: boolean;
@@ -14,6 +15,15 @@ function DomainSubtableModal({
   setOpen,
 }: DomainSubtableModalProps) {
   const [openSubtableModal, setOpenSubtableModal] = useState<boolean>(false);
+
+  const [selectedAmenity, setSelectedAmenity] =
+    useState<initialValuesType | null>(null);
+
+  const handleDispatchValueAndOpenModal = (value: initialValuesType) => {
+    setSelectedAmenity(value);
+    setOpenSubtableModal(true);
+  };
+
   return (
     <>
       <Modal
@@ -32,10 +42,12 @@ function DomainSubtableModal({
             <TbCirclePlus size={18} />
           </Button>
         </div>
-        <DomainSubtable />
+        <DomainSubtable onSelect={handleDispatchValueAndOpenModal} />
         <AddOrEditDomainModal
           open={openSubtableModal}
           setOpen={setOpenSubtableModal}
+          initialValues={selectedAmenity}
+          onCloseModal={setSelectedAmenity}
         />
       </Modal>
     </>

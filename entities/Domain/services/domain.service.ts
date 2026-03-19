@@ -34,6 +34,14 @@ export const domainAPI = createApi({
       }),
       invalidatesTags: ["amenities"],
     }),
+    updateAmenity: builder.mutation({
+      query: ({ id, ...rest }) => ({
+        url: `/domain/amenity/${id}`,
+        method: "PUT",
+        body: rest,
+      }),
+      invalidatesTags: ["amenities"],
+    }),
   }),
 });
 
@@ -41,4 +49,5 @@ export const {
   useGetAmenitiesQuery,
   useCreateNewAmenityMutation,
   useRemoveAmenityMutation,
+  useUpdateAmenityMutation,
 } = domainAPI;

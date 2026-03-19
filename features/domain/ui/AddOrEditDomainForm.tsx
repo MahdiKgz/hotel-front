@@ -1,5 +1,6 @@
 import React from "react";
 import AddAmenityForm from "./AddAmenityForm";
+import EditAmenityForm from "./EditAmenityForm";
 
 export interface initialValuesType {
   title: string;
@@ -14,7 +15,11 @@ function AddOrEditDomainForm({
 }) {
   return (
     <div className="w-full">
-      {initialValues ? <>edit</> : <AddAmenityForm />}
+      {initialValues ? (
+        <EditAmenityForm initialValues={initialValues} />
+      ) : (
+        <AddAmenityForm />
+      )}
     </div>
   );
 }

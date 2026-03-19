@@ -1,13 +1,16 @@
 import { useForm } from "react-hook-form";
 import { initialValuesType } from "../ui/AddOrEditDomainForm";
-import { useCreateNewAmenityMutation } from "@/entities/Domain/services/domain.service";
+import {
+  useCreateNewAmenityMutation,
+  useUpdateAmenityMutation,
+} from "@/entities/Domain/services/domain.service";
 import { toast } from "react-toastify";
 
 export default function useAddOrEditDomain(
   initialValues: initialValuesType | null,
 ) {
   const methods = useForm({
-    defaultValues: initialValues === null ? {} : { ...initialValues },
+    defaultValues: initialValues === null ? {} : initialValues,
     mode: "onChange",
   });
 
@@ -18,14 +21,30 @@ export default function useAddOrEditDomain(
   } = methods;
 
   const [createNewAmenity] = useCreateNewAmenityMutation();
+  const [updateAmenity] = useUpdateAmenityMutation();
 
   const onSubmit = async (data: unknown) => {
     try {
-      await createNewAmenity(data).unwrap();
-      toast.success("امکانات جدید با موفقیت اضافه شد.");
-      reset();
+      if (initialValues === null) {
+        await createNewAmenity(data).unwrap();
+        toast.success("امکانات جدید با موفقیت اضافه شد.");
+        reset();
+        return;
+      }
+      if (initialValues !== null) {
+        await updateAmenity(data).unwrap();
+        toast.success("امکانات با موفقیت به روزرسانی شد.");
+        reset();
+        return;
+      }
     } catch (err) {
-      console.log(err);
+      if (err.data.message === "Amenity already exists") {
+        toast.error("امکانات از قبل وجود دارد.");
+      }
+      if (err.data.message === "Amenity NOT found !!") {
+        toast.error("امکانات پیدا نشد.");
+      }
+      toast.error("در ایجاد یا به روزرسانی امکانات مشکلی وجود دارد.");
     }
   };
 

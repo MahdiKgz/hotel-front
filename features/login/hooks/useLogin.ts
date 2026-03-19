@@ -41,7 +41,6 @@ export default function useLogin() {
     if (mode === "otp") {
       try {
         const { data: verifyOtpResponse } = await verifyOTP(data).unwrap();
-        console.log(verifyOtpResponse);
         toast.success("ورود موفقیت آمیز بود. خوش آمدید");
         sessionStorage.setItem("authToken", verifyOtpResponse.token);
         window.location.href = "/dashboard";

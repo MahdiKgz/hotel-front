@@ -7,14 +7,20 @@ import { Button, Popconfirm, Table, Tag } from "antd";
 import { initialValuesType } from "./AddOrEditDomainForm";
 import { toast } from "react-toastify";
 
-function DomainSubtable() {
+function DomainSubtable({
+  onSelect,
+}: {
+  onSelect: (value: initialValuesType) => void;
+}) {
   const [removeAmenity] = useRemoveAmenityMutation();
 
   const handleRemoveAmenity = async (id: number) => {
     try {
       await removeAmenity(id).unwrap();
       toast.success("امکانات با موفقیت حذف شد");
-    } catch (err) {}
+    } catch {
+      toast.error("در حذف امکانات مشکلی وجود دارد");
+    }
   };
 
   const columns = [
@@ -43,7 +49,7 @@ function DomainSubtable() {
         <span className="flex gap-2">
           <button
             className="text-blue-600 hover:text-blue-800"
-            onClick={() => console.log(record)}
+            onClick={() => onSelect(record)}
           >
             ویرایش
           </button>
