@@ -4,7 +4,7 @@ import RegisterForm from "@/features/register/ui/RegisterForm";
 
 function Register() {
   return (
-    <div className="bg-white shadow-lg shadow-sky-200 w-80 p-7 rounded-xl flex flex-col items-center justify-center gap-8 relative">
+    <div className="bg-white shadow-lg shadow-shadow-primary w-80 p-7 rounded-xl flex flex-col items-center justify-center gap-8 relative">
       <div className="register-form__header w-full flex flex-col items-center justify-center gap-2">
         <h1 className="font-bold text-[18px]">ساخت حساب کاربری جدید</h1>
         <div className="flex items-center gap-1">
@@ -15,7 +15,7 @@ function Register() {
         </div>
       </div>
       <RegisterForm />
-      <div className="absolute -z-1 -top-4 right-1/2 left-1/2 translate-x-1/2 mx-auto bg-sky-500! w-87 h-25 rounded-xl"></div>
+      <div className="absolute -z-1 -top-4 right-1/2 left-1/2 translate-x-1/2 mx-auto bg-brand! w-87 h-25 rounded-xl"></div>
     </div>
   );
 }
