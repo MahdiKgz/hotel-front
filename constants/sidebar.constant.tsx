@@ -1,6 +1,12 @@
 import { FaHome, FaUserAlt } from "react-icons/fa";
-import { FaHouseChimney } from "react-icons/fa6";
-import { MdEvent, MdPerson2 } from "react-icons/md";
+import {
+  FaCommentDots,
+  FaGlobe,
+  FaHotel,
+  FaHouseChimney,
+  FaUserShield,
+} from "react-icons/fa6";
+import { MdEvent } from "react-icons/md";
 
 export const adminSidebar = [
   {
@@ -10,14 +16,15 @@ export const adminSidebar = [
   },
   {
     label: "مدیریت افراد",
-    icon: "",
+    icon: <FaUserShield />,
     url: "/dashboard/users",
   },
-  { label: "مدیریت هتل ها", icon: "", url: "/dashboard/hotels" },
-  { label: "مدیریت دامنه ها", icon: "", url: "/dashboard/domains" },
+  { label: "مدیریت هتل ها", icon: <FaHotel />, url: "/dashboard/hotels" },
+  { label: "مدیریت دامنه ها", icon: <FaGlobe />, url: "/dashboard/domains" },
+  { label: "مدیریت نظرات", icon: <FaCommentDots />, url: "/dashboard/comments" },
   {
     label: "پروفایل",
-    icon: "",
+    icon: <FaUserAlt />,
     url: "/dashboard/profile",
   },
 ];

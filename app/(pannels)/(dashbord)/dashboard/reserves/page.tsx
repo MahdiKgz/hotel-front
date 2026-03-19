@@ -1,7 +1,7 @@
 import React from "react";
 
-function Reserves() {
-  return <div>Reserves</div>;
+function ReservesManagement() {
+  return <div>ReservesManagement</div>;
 }
 
-export default Reserves;
+export default ReservesManagement;
