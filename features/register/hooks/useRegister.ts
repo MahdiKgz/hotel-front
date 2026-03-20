@@ -16,7 +16,7 @@ export default function useRegister() {
   const [register, { isLoading: isRequestSubmitting }] = useRegisterMutation();
   const onSubmit = async (data: RegisterFormValues) => {
     try {
-      const result = await register({ ...data, role: "GUEST" }).unwrap();
+      const result = await register(data).unwrap();
 
       if (result.message === "User created successfully !!") {
         toast.success("ثبت نام انجام شد . خوش آمدید.");
