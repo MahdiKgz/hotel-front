@@ -26,6 +26,9 @@ function OTPMethodLogin({ methods }) {
           "رمز یکبار مصرف برای شما ارسال شده. بعد از یک دقیقه مجدد تلاش کنید",
         );
       }
+      if (error.data.message === "You are banned.") {
+        toast.error("شما مسدود شده اید.");
+      }
     }
   };
 

@@ -1,7 +1,6 @@
-import { roles } from "@/constants/users.constant";
 import { useGetOneUserQuery } from "@/entities/User/services/auth.service";
 import { Descriptions, Modal, Tag } from "antd";
-import React, { Dispatch, ReactNode, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 
 interface UserInformationModalProps {
   id: number;

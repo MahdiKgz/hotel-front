@@ -68,6 +68,9 @@ export default function useLogin() {
         if (err.data.message === "Username or password is incorrect !!") {
           toast.error("نام کاربری یا رمز عبور اشتباه است.");
         }
+        if (err.data.message === "You are banned.") {
+          toast.error("شما مسدود شده اید.");
+        }
       }
     }
   };
