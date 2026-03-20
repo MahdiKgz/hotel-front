@@ -17,7 +17,7 @@ export const authAPI = createApi({
     },
   }),
 
-  tagTypes: ["me"],
+  tagTypes: ["me", "users"],
 
   endpoints: (builder) => ({
     register: builder.mutation({
@@ -91,6 +91,13 @@ export const authAPI = createApi({
       }),
       invalidatesTags: ["me"],
     }),
+    getAllUsers: builder.query({
+      query: () => "/users",
+      providesTags: ["users"],
+    }),
+    getOneUser: builder.query({
+      query: (id) => `/users/${id}`,
+    }),
   }),
 });
 
@@ -103,4 +110,6 @@ export const {
   useUploadAvatarMutation,
   useUpdateProfileMutation,
   useResetPasswordMutation,
+  useGetAllUsersQuery,
+  useGetOneUserQuery,
 } = authAPI;
