@@ -98,6 +98,13 @@ export const authAPI = createApi({
     getOneUser: builder.query({
       query: (id) => `/users/${id}`,
     }),
+    banUser: builder.mutation({
+      query: (id) => ({
+        url: `/users/${id}/ban`,
+        method: "POST",
+      }),
+      invalidatesTags: ["users"],
+    }),
   }),
 });
 
@@ -112,4 +119,5 @@ export const {
   useResetPasswordMutation,
   useGetAllUsersQuery,
   useGetOneUserQuery,
+  useBanUserMutation,
 } = authAPI;

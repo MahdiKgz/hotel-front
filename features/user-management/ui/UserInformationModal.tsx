@@ -14,7 +14,10 @@ function UserInformationModal({
   open,
   setOpen,
 }: UserInformationModalProps) {
-  const { data: user } = useGetOneUserQuery(id, { refetchOnFocus: true });
+  const { data: user } = useGetOneUserQuery(id, {
+    refetchOnFocus: true,
+    skip: !open,
+  });
 
   const formattedUser = user?.data?.user;
 

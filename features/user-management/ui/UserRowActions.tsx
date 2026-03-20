@@ -4,9 +4,28 @@ import { Button, Popconfirm } from "antd";
 import { FaBan } from "react-icons/fa";
 import { FaBars } from "react-icons/fa6";
 import UserInformationModal from "./UserInformationModal";
+import { useBanUserMutation } from "@/entities/User/services/auth.service";
+import { toast } from "react-toastify";
 
 function UserRowActions({ id }: { id: number }) {
   const [open, setOpen] = useState<boolean>(false);
+
+  const [banUser] = useBanUserMutation();
+
+  const handleBanUser = async () => {
+    try {
+      await banUser(id).unwrap();
+      toast.success("کاربر با موفقیت مسدود شد.");
+    } catch (err) {
+      if (err.data.message === "User NOT found !!") {
+        toast.error("کاربر پیدا نشد.");
+      }
+      if (err.data.message === "User is already banned !!") {
+        toast.error("کاربر در حال حاضر مسدود شده است.");
+      }
+      toast.error("در مسدود کردن کاربر مشکلی وجود دارد.");
+    }
+  };
 
   if (!id) return;
   return (
@@ -17,7 +36,7 @@ function UserRowActions({ id }: { id: number }) {
         okText="تایید"
         cancelText="انصراف"
         okType="danger"
-        onConfirm={() => console.log(`banned user ${id}`)}
+        onConfirm={handleBanUser}
       >
         <Button danger type="text" title="بن کردن کاربر">
           <FaBan size={14} />
