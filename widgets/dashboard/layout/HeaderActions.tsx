@@ -53,6 +53,7 @@ function HeaderActions() {
         onClose={() => setOpen(() => false)}
         size={256}
         title="دسترسی سریع"
+        classNames={{ root: "block md:hidden!" }}
       >
         <ul className="w-full flex flex-col items-start gap-3">
           {sidebarData.map((link) => {
