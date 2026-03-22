@@ -18,3 +18,8 @@ body {
   direction: rtl !important;
   font-family: ShabnamFarsi !important;
 }
+
+input::placeholder,
+textarea::placeholder {
+  color: #9ca3af !important;
+}

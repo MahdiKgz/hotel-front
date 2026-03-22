@@ -17,7 +17,7 @@ function RHFSelect({
       control={control}
       rules={rules}
       render={({ field, fieldState }) => (
-        <>
+        <div className="w-1/2 flex flex-col items-start gap-1.5">
           <Select
             className="filter-select-control"
             popupClassName="filter-select-dropdown"
@@ -41,13 +41,16 @@ function RHFSelect({
               getPopupContainer ||
               ((triggerNode) => triggerNode?.parentElement || document.body)
             }
-            classNames={{ root: "w-1/2 inline-block" }}
+            classNames={{
+              root: "w-full inline-block",
+              placeholder: "text-[#9ca3af]!",
+            }}
           />
 
           {fieldState.error && (
-            <p className="filter-field-error">{fieldState.error.message}</p>
+            <p className="text-sm text-red-500">{fieldState.error.message}</p>
           )}
-        </>
+        </div>
       )}
     />
   );
