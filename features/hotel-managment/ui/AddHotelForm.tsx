@@ -84,7 +84,6 @@ function AddHotelForm() {
             name="manager_id"
             placeholder="مسئول هتل را انتخاب کنید"
             options={managersSelectOptions}
-            rules={{ required: "نام مسئول الزامی است." }}
           />
         </div>
 

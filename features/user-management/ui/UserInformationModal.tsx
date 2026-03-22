@@ -1,3 +1,4 @@
+import { roles } from "@/constants/users.constant";
 import { useGetOneUserQuery } from "@/entities/User/services/auth.service";
 import { Descriptions, Modal, Tag } from "antd";
 import React, { Dispatch, SetStateAction } from "react";
@@ -39,8 +40,15 @@ function UserInformationModal({
         <Descriptions.Item label="شماره تماس">
           {formattedUser.phone || <Tag color="red">ثبت نشده</Tag>}
         </Descriptions.Item>
-        <Descriptions.Item label="ایمیل">
-          {formattedUser.email || <Tag color="red">ثبت نشده</Tag>}
+        <Descriptions.Item label="آدرس">
+          {formattedUser.address || <Tag color="red">ثبت نشده</Tag>}
+        </Descriptions.Item>
+        <Descriptions.Item label="نقش">
+          {(
+            <Tag color={formattedUser?.role === "ADMIN" ? "green" : "blue"}>
+              {roles[formattedUser.role]}
+            </Tag>
+          ) || <Tag color="red">ثبت نشده</Tag>}
         </Descriptions.Item>
         <Descriptions.Item label="توضیحات">
           {formattedUser.bio || <Tag color="red">ثبت نشده</Tag>}
