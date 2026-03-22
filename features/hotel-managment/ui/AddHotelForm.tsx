@@ -5,7 +5,11 @@ import { FormProvider } from "react-hook-form";
 import useAddHotel from "../hooks/useAddHotel";
 import { Button, Spin } from "antd";
 import RHFSelect from "@/shared/ui/RHFSelect";
-import { useGetManagersQuery } from "@/entities/Domain/services/domain.service";
+import {
+  useGetCitiesQuery,
+  useGetManagersQuery,
+} from "@/entities/Domain/services/domain.service";
+import { METRO_ACCESS, STARS_COUNT } from "@/constants/hotel.constant";
 
 function AddHotelForm() {
   const { methods, handleSubmit, onSubmit, isValid, isSubmittingForm } =
@@ -15,7 +19,13 @@ function AddHotelForm() {
     refetchOnFocus: true,
   });
 
+  const { data: citiesResponse } = useGetCitiesQuery("", {
+    refetchOnFocus: true,
+  });
+
   const managersSelectOptions = managersResponse?.data.managersOptions;
+
+  const citiesSelectOptions = citiesResponse?.data.provincesOptions;
 
   return (
     <FormProvider {...methods}>
@@ -47,7 +57,7 @@ function AddHotelForm() {
           <RHFSelect
             name="city"
             placeholder="شهر را انتخاب کنید"
-            options={[{ value: 1, label: "تهران" }]}
+            options={citiesSelectOptions}
             rules={{ required: "شهر الزامی است." }}
           />
         </div>
@@ -69,13 +79,13 @@ function AddHotelForm() {
           <RHFSelect
             name="stars"
             placeholder="تعداد ستاره های هتل را انتخاب کنید"
-            options={[{ value: "1", label: "یک ستاره" }]}
+            options={STARS_COUNT}
             rules={{ required: "تعداد ستاره الزامی است." }}
           />
           <RHFSelect
             name="metroAccess"
             placeholder="دسترسی به مترو را انتخاب کنید"
-            options={[{ value: "YES", label: "دارد" }]}
+            options={METRO_ACCESS}
             rules={{ required: "دسترسی به مترو الزامی است" }}
           />
         </div>

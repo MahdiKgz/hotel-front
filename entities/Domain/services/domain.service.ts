@@ -13,7 +13,7 @@ export const domainAPI = createApi({
     },
   }),
 
-  tagTypes: ["amenities", "managers"],
+  tagTypes: ["amenities", "managers", "cities"],
   endpoints: (builder) => ({
     getAmenities: builder.query({
       query: () => "/domain/amenity",
@@ -47,6 +47,10 @@ export const domainAPI = createApi({
       query: () => "/domain/managers",
       providesTags: ["managers"],
     }),
+    getCities: builder.query({
+      query: () => "/domain/cities",
+      providesTags: ["cities"],
+    }),
   }),
 });
 
@@ -56,4 +60,5 @@ export const {
   useRemoveAmenityMutation,
   useUpdateAmenityMutation,
   useGetManagersQuery,
+  useGetCitiesQuery,
 } = domainAPI;

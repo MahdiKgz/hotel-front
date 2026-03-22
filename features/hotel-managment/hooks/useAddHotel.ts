@@ -24,6 +24,13 @@ export default function useAddHotel() {
     } catch (err) {
       if (err.data.message === "Hotel already exists") {
         toast.error("هتل با این نام  یا نام اختصاری وجود دارد.");
+        return;
+      }
+      if (err.data.message === "manager already has one active hotel.") {
+        toast.error(
+          "مسئول وارد شده نمیتواند بیش از یک هتل فعال در سامانه داشته باشد.",
+        );
+        return;
       }
       toast.error("در افزودن هتل ایرادی وجود دارد.");
     }
