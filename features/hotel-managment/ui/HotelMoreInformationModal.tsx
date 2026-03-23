@@ -3,7 +3,8 @@ import React, { Dispatch, SetStateAction } from "react";
 import { Hotel } from "@/features/hotel-managment/types/hotel.types";
 import { Modal, Tabs } from "antd";
 import type { TabsProps } from "antd";
-import General from "@/features/hotel-managment/ui/General";
+import General from "./MoreInfoTabs/General";
+import Rooms from "./MoreInfoTabs/Rooms";
 
 interface HotelMoreInformationModalProps {
   open: boolean;
@@ -25,7 +26,7 @@ function HotelMoreInformationModal({
     {
       key: "rooms",
       label: "اتاق‌ها",
-      children: <div />,
+      children: <Rooms id={record.id} />,
     },
     {
       key: "amenities",

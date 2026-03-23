@@ -4,7 +4,7 @@ import { Button } from "antd";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Hotel } from "../types/hotel.types";
 import { FaBars } from "react-icons/fa6";
-import HotelMoreInformationModal from "@/features/user-management/ui/HotelMoreInformationModal";
+import HotelMoreInformationModal from "./HotelMoreInformationModal";
 
 function HotelRowActions({ row }: { row: Hotel }) {
   const [open, setOpen] = useState<boolean>(false);

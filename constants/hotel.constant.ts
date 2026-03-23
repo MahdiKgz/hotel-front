@@ -23,3 +23,27 @@ export const METRO_ACCESS_MAP = {
   YES: "دارد",
   NO: "ندارد",
 };
+
+export const ROOM_STATUS = [
+  { value: "EMPTY", label: "بدون ساکن" },
+  { value: "RESERVED", label: "رزرو شده" },
+  { value: "MAINTAIN", label: "در حال تعمیر" },
+];
+
+export const BOOK_TYPE = [
+  { value: "DAILY", label: "روزانه" },
+  { value: "WEEKLY", label: "هفتگی" },
+  { value: "MONTHLY", label: "ماهیانه" },
+];
+
+export const GEO_DIRECTION = [
+  { value: "NORTH", label: "شمال" },
+  { value: "SOUTH", label: "جنوب" },
+  { value: "EAST", label: "شرق" },
+  { value: "WEST", label: "غرب" },
+];
+
+export const KITCHEN = [
+  { label: "دارد", value: "YES" },
+  { label: "ندارد", value: "NO" },
+];

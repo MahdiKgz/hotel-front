@@ -7,6 +7,7 @@ interface RHFInputProps {
   placeholder?: string;
   size?: "small" | "middle" | "large";
   isPassword?: boolean;
+  type?: React.InputHTMLAttributes<HTMLInputElement>["type"];
   [key: string]: unknown;
   icon?: React.ReactNode;
   isTextArea?: boolean;
@@ -19,6 +20,7 @@ export const RHFInput = ({
   isPassword = false,
   rules = {},
   isTextArea = false,
+  type = "text",
   icon,
   ...rest
 }: RHFInputProps) => {
@@ -44,6 +46,7 @@ export const RHFInput = ({
             size={size}
             status={fieldState.error ? "error" : undefined}
             prefix={icon}
+            type={isTextArea ? undefined : type} // فقط برای Input و Input.Password
           />
           {fieldState.error && (
             <span className="w-full text-red-500 text-xs text-right">
