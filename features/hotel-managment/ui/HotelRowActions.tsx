@@ -1,13 +1,27 @@
 "use client";
 import React, { useState } from "react";
-import { Button } from "antd";
+import { Button, Popconfirm } from "antd";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import { Hotel } from "../types/hotel.types";
 import { FaBars } from "react-icons/fa6";
 import HotelMoreInformationModal from "./HotelMoreInformationModal";
+import { useRemoveHotelMutation } from "@/entities/Hotel/services/hotel.service";
+import { toast } from "react-toastify";
 
 function HotelRowActions({ row }: { row: Hotel }) {
   const [open, setOpen] = useState<boolean>(false);
+
+  const [removeHotel] = useRemoveHotelMutation();
+
+  const handleRemoveHotel = async () => {
+    try {
+      await removeHotel(row.slug).unwrap();
+      toast.success("هتل با موفقیت حذف شد.");
+    } catch {
+      toast.error("در حذف هتل مشکلی وجود دارد.");
+    }
+  };
+
   return (
     <div className="flex items-center gap-3.5">
       <Button
@@ -22,12 +36,21 @@ function HotelRowActions({ row }: { row: Hotel }) {
         color="blue"
         icon={<FaEdit size={18} />}
       />
-      <Button
-        danger
-        size="middle"
-        type="text"
-        icon={<FaTrashAlt size={18} />}
-      />
+      <Popconfirm
+        title="آیا مطمئن هستید؟"
+        description="این عمل بازگشت ناپذیر خواهد بود و تمامی موارد مرتبط حذف خواهند شد."
+        okType="danger"
+        okText="حذف"
+        cancelText="انصراف"
+        onConfirm={handleRemoveHotel}
+      >
+        <Button
+          danger
+          size="middle"
+          type="text"
+          icon={<FaTrashAlt size={18} />}
+        />
+      </Popconfirm>
       <HotelMoreInformationModal open={open} setOpen={setOpen} record={row} />
     </div>
   );

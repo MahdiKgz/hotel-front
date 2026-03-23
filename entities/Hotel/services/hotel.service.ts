@@ -29,6 +29,13 @@ export const hotelAPI = createApi({
       query: () => "/hotel",
       providesTags: ["hotels"],
     }),
+    removeHotel: builder.mutation({
+      query: (slug) => ({
+        url: `/hotel/${slug}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["hotels"],
+    }),
     getOneHotel: builder.query({
       query: (slug) => `/hotel/${slug}`,
     }),
@@ -53,4 +60,5 @@ export const {
   useGetOneHotelQuery,
   useGetRoomsQuery,
   useCreateRoomMutation,
+  useRemoveHotelMutation,
 } = hotelAPI;
