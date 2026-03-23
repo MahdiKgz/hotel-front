@@ -10,3 +10,16 @@ export const METRO_ACCESS = [
   { value: "YES", label: "دارد" },
   { value: "NO", label: "ندارد" },
 ];
+
+export const STARS_COUNT_MAP = {
+  1: "یک ستاره",
+  2: "دو ستاره",
+  3: "سه ستاره",
+  4: "چهار ستاره",
+  5: "پنج ستاره",
+};
+
+export const METRO_ACCESS_MAP = {
+  YES: "دارد",
+  NO: "ندارد",
+};

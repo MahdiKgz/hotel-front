@@ -3,11 +3,12 @@ import React, { Dispatch, SetStateAction } from "react";
 import { Hotel } from "@/features/hotel-managment/types/hotel.types";
 import { Modal, Tabs } from "antd";
 import type { TabsProps } from "antd";
+import General from "@/features/hotel-managment/ui/General";
 
 interface HotelMoreInformationModalProps {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
-  record: Hotel;
+  record: Hotel & { id: number };
 }
 
 function HotelMoreInformationModal({
@@ -19,7 +20,7 @@ function HotelMoreInformationModal({
     {
       key: "general",
       label: "اطلاعات کلی",
-      children: <div />,
+      children: <General slug={record.slug} />,
     },
     {
       key: "rooms",
@@ -57,7 +58,7 @@ function HotelMoreInformationModal({
       footer={null}
     >
       <Tabs
-        defaultActiveKey="reviews"
+        defaultActiveKey="general"
         tabBarStyle={{
           gap: "16px",
         }}

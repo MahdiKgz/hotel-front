@@ -29,7 +29,14 @@ export const hotelAPI = createApi({
       query: () => "/hotel",
       providesTags: ["hotels"],
     }),
+    getOneHotel: builder.query({
+      query: (slug) => `/hotel/${slug}`,
+    }),
   }),
 });
 
-export const { useAddHotelMutation, useGetAllHotelsQuery } = hotelAPI;
+export const {
+  useAddHotelMutation,
+  useGetAllHotelsQuery,
+  useGetOneHotelQuery,
+} = hotelAPI;

@@ -6,8 +6,8 @@ import { ToastContainer } from "react-toastify";
 
 function Providers({ children }: { children: React.ReactNode }) {
   return (
-    <Provider store={store}>
-      {children}
+    <>
+      <Provider store={store}>{children}</Provider>
       <ToastContainer
         position="top-center"
         autoClose={3000}
@@ -19,7 +19,7 @@ function Providers({ children }: { children: React.ReactNode }) {
         draggable
         pauseOnHover
       />
-    </Provider>
+    </>
   );
 }
 
