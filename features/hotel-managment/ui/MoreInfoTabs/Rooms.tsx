@@ -1,7 +1,7 @@
 "use client";
 import React, { useMemo, useState } from "react";
 import { useGetRoomsQuery } from "@/entities/Hotel/services/hotel.service";
-import { Button, Table } from "antd";
+import { Button, Table, Tag } from "antd";
 import { FaPlusCircle } from "react-icons/fa";
 import AddOrEditRoomModal from "./AddOrEditRoomModal";
 
@@ -19,7 +19,22 @@ function Rooms({ id }: { id: number }) {
       { key: "name", dataIndex: "name", title: "عنوان" },
       { key: "slug", dataIndex: "slug", title: "علامت اختصاری" },
       { key: "capacity", dataIndex: "capacity", title: "ظرفیت (نفر)" },
-      { key: "status", dataIndex: "status", title: "وضعیت" },
+      {
+        key: "status",
+        dataIndex: "status",
+        title: "وضعیت",
+        render: (_: unknown, record) => (
+          <>
+            {record.status === "RESERVED" ? (
+              <Tag color="red">رزرو شده</Tag>
+            ) : record.status === "MAINTAIN" ? (
+              <Tag color="cyan">در حال تعمیر</Tag>
+            ) : (
+              <Tag color="blue">قابل رزرو</Tag>
+            )}
+          </>
+        ),
+      },
       {
         key: "operations",
         title: "عملیات",
@@ -39,6 +54,7 @@ function Rooms({ id }: { id: number }) {
           <FaPlusCircle size={14} />
         </Button>
       </div>
+
       <Table
         columns={columns}
         dataSource={rooms}
