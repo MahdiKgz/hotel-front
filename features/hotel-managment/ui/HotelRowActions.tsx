@@ -7,9 +7,11 @@ import { FaBars } from "react-icons/fa6";
 import HotelMoreInformationModal from "./HotelMoreInformationModal";
 import { useRemoveHotelMutation } from "@/entities/Hotel/services/hotel.service";
 import { toast } from "react-toastify";
+import UpdateHotelModal from "./UpdateHotelModal";
 
 function HotelRowActions({ row }: { row: Hotel }) {
   const [open, setOpen] = useState<boolean>(false);
+  const [openEdit, setOpenEdit] = useState<boolean>(false);
 
   const [removeHotel] = useRemoveHotelMutation();
 
@@ -35,6 +37,7 @@ function HotelRowActions({ row }: { row: Hotel }) {
         type="text"
         color="blue"
         icon={<FaEdit size={18} />}
+        onClick={() => setOpenEdit(() => true)}
       />
       <Popconfirm
         title="آیا مطمئن هستید؟"
@@ -51,6 +54,7 @@ function HotelRowActions({ row }: { row: Hotel }) {
           icon={<FaTrashAlt size={18} />}
         />
       </Popconfirm>
+      <UpdateHotelModal open={openEdit} setOpen={setOpenEdit} row={row} />
       <HotelMoreInformationModal open={open} setOpen={setOpen} record={row} />
     </div>
   );

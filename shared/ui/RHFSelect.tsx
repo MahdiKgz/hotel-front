@@ -1,14 +1,7 @@
 import { Controller, useFormContext } from "react-hook-form";
 import { Select } from "antd";
 
-function RHFSelect({
-  name,
-  options,
-  rules,
-  placeholder,
-  mode = "",
-  getPopupContainer,
-}) {
+function RHFSelect({ name, options, rules, placeholder, mode = "" }) {
   const { control } = useFormContext();
 
   return (
@@ -36,10 +29,6 @@ function RHFSelect({
                 .toString()
                 .toLowerCase()
                 .includes(input.toLowerCase())
-            }
-            getPopupContainer={
-              getPopupContainer ||
-              ((triggerNode) => triggerNode?.parentElement || document.body)
             }
             classNames={{
               root: "w-full inline-block",
