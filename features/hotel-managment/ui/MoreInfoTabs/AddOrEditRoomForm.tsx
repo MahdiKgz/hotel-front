@@ -20,7 +20,10 @@ function AddOrEditRoomForm({
   room: Room | null;
   hotelId: number;
 }) {
-  const { methods, handleSubmit, isValid, onSubmit } = useAddOrEditRoom(room);
+  const { methods, handleSubmit, isValid, onSubmit } = useAddOrEditRoom(
+    room,
+    hotelId,
+  );
   return (
     <FormProvider {...methods}>
       <form
