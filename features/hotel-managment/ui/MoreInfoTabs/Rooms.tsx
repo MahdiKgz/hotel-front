@@ -1,14 +1,11 @@
 "use client";
-import React, { useCallback, useMemo, useState } from "react";
-import {
-  useDeleteRoomMutation,
-  useGetRoomsQuery,
-} from "@/entities/Hotel/services/hotel.service";
-import { Button, Popconfirm, Table, Tag } from "antd";
-import { FaPlusCircle, FaRegTrashAlt } from "react-icons/fa";
+import React, { useMemo, useState } from "react";
+import { useGetRoomsQuery } from "@/entities/Hotel/services/hotel.service";
+import { Button, Table, Tag } from "antd";
+import { FaPlusCircle } from "react-icons/fa";
 import AddOrEditRoomModal from "./AddOrEditRoomModal";
 import { Room } from "../../types/room.types";
-import { toast } from "react-toastify";
+import RoomsRowActions from "../RoomsRowActions";
 
 function Rooms({ id }: { id: number }) {
   const [open, setOpen] = useState<boolean>(false);
@@ -18,24 +15,6 @@ function Rooms({ id }: { id: number }) {
   });
 
   const rooms = roomsResponse?.data.rooms;
-
-  const [deleteRoom] = useDeleteRoomMutation();
-
-  const handleRemoveRoom = useCallback(
-    async (slug: string) => {
-      try {
-        await deleteRoom(slug).unwrap();
-        toast.success("اتاق با موفقیت حذف شد");
-      } catch (err) {
-        if (err.data.message === "room NOT found !!") {
-          toast.error("اتاق پیدا نشد.");
-          return;
-        }
-        toast.error("در حذف اتاق مشکلی به وجود آمد");
-      }
-    },
-    [deleteRoom],
-  );
 
   const columns = useMemo(
     () => [
@@ -62,24 +41,11 @@ function Rooms({ id }: { id: number }) {
         key: "operations",
         title: "عملیات",
         render: (_: unknown, record: Room) => (
-          <>
-            <Popconfirm
-              title="آیا مطمئن هستید؟"
-              description="این عمل بازگشت پذیر نیست."
-              okType="danger"
-              okText="حذف"
-              cancelText="انصراف"
-              onConfirm={() => handleRemoveRoom(record.slug)}
-            >
-              <Button type="text" danger>
-                <FaRegTrashAlt size={18} />
-              </Button>
-            </Popconfirm>
-          </>
+          <RoomsRowActions record={record} />
         ),
       },
     ],
-    [handleRemoveRoom],
+    [],
   );
   return (
     <>

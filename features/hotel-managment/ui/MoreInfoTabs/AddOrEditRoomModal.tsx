@@ -18,7 +18,7 @@ function AddOrEditRoomModal({
 }: AddOrEditRoomModalProps) {
   return (
     <Modal
-      title={room !== null ? "افزودن اتاق" : "ویرایش اتاق"}
+      title={room !== null ? "ویرایش اتاق" : "افزودن اتاق"}
       open={open}
       onCancel={() => setOpen(() => false)}
       footer={null}
