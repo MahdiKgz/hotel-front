@@ -47,3 +47,27 @@ export const KITCHEN = [
   { label: "دارد", value: "YES" },
   { label: "ندارد", value: "NO" },
 ];
+
+export const ROOM_STATUS_MAP = {
+  EMPTY: "بدون ساکن",
+  RESERVED: "رزرو شده",
+  MAINTAIN: "در حال تعمیر",
+};
+
+export const BOOK_TYPE_MAP = {
+  DAILY: "روزانه",
+  WEEKLY: "هفتگی",
+  MONTHLY: "ماهیانه",
+};
+
+export const GEO_DIRECTION_MAP = {
+  NORTH: "شمال",
+  SOUTH: "جنوب",
+  EAST: "شرق",
+  WEST: "غرب",
+};
+
+export const KITCHEN_MAP = {
+  YES: "دارد",
+  NO: "ندارد",
+};

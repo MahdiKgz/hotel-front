@@ -8,9 +8,12 @@ import {
 } from "@/entities/Hotel/services/hotel.service";
 import { toast } from "react-toastify";
 import AddOrEditRoomModal from "./MoreInfoTabs/AddOrEditRoomModal";
+import RoomGeneralModal from "./MoreInfoTabs/RoomGeneralModal";
+import { FaBars } from "react-icons/fa6";
 
 function RoomsRowActions({ record }: { record: Room }) {
   const [open, setOpen] = useState(false);
+  const [openGeneral, setOpenGeneral] = useState(false);
   const [deleteRoom] = useDeleteRoomMutation();
 
   const handleRemoveRoom = useCallback(
@@ -31,13 +34,16 @@ function RoomsRowActions({ record }: { record: Room }) {
 
   const { data: oneRoomResponse } = useGetOneRoomQuery(record.slug, {
     refetchOnFocus: true,
-    skip: !open,
+    skip: !open && !openGeneral,
   });
 
   const room = oneRoomResponse?.data.room;
 
   return (
     <>
+      <Button type="text" onClick={() => setOpenGeneral(() => true)}>
+        <FaBars size={18} />
+      </Button>
       <Button type="text" onClick={() => setOpen(() => true)}>
         <FaRegEdit size={18} />
       </Button>
@@ -53,10 +59,17 @@ function RoomsRowActions({ record }: { record: Room }) {
           <FaRegTrashAlt size={18} />
         </Button>
       </Popconfirm>
+
       <AddOrEditRoomModal
         open={open}
         setOpen={setOpen}
         hotelId={room?.hotel_id}
+        room={room}
+      />
+
+      <RoomGeneralModal
+        open={openGeneral}
+        setOpen={setOpenGeneral}
         room={room}
       />
     </>
