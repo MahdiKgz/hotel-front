@@ -14,7 +14,7 @@ export const hotelAPI = createApi({
     },
   }),
 
-  tagTypes: ["hotels", "rooms"],
+  tagTypes: ["hotels", "rooms", "hotel"],
 
   endpoints: (builder) => ({
     addHotel: builder.mutation({
@@ -42,10 +42,11 @@ export const hotelAPI = createApi({
         method: "PUT",
         body: payload,
       }),
-      invalidatesTags: ["hotels"],
+      invalidatesTags: ["hotels", "hotel"],
     }),
     getOneHotel: builder.query({
       query: (slug) => `/hotel/${slug}`,
+      providesTags: ["hotel"],
     }),
     getRooms: builder.query({
       query: (id) => `/hotel/${id}/rooms`,
@@ -56,6 +57,13 @@ export const hotelAPI = createApi({
         url: "/room",
         method: "POST",
         body: payload,
+      }),
+      invalidatesTags: ["rooms"],
+    }),
+    deleteRoom: builder.mutation({
+      query: (slug) => ({
+        url: `/room/${slug}`,
+        method: "DELETE",
       }),
       invalidatesTags: ["rooms"],
     }),
@@ -70,4 +78,5 @@ export const {
   useCreateRoomMutation,
   useRemoveHotelMutation,
   useUpdateHotelMutation,
+  useDeleteRoomMutation,
 } = hotelAPI;
