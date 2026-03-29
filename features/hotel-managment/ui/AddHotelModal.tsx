@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
-import { Modal } from "antd";
+import { Alert, Modal } from "antd";
 import { AddHotelModalProps } from "../types/hotel.types";
 import AddHotelForm from "./AddHotelForm";
+import { IoInformation } from "react-icons/io5";
 
 function AddHotelModal({ open, setOpen }: AddHotelModalProps) {
   return (
@@ -13,6 +14,12 @@ function AddHotelModal({ open, setOpen }: AddHotelModalProps) {
       footer={null}
       width={1000}
     >
+      <Alert
+        title="با انتخاب نکردن مدیر هتل ؛ شما هتل را عهده دار خواهید بود."
+        className="my-4! rounded!"
+        type="warning"
+        banner
+      />
       <AddHotelForm />
     </Modal>
   );
