@@ -5,6 +5,7 @@ import { Modal, Tabs } from "antd";
 import type { TabsProps } from "antd";
 import General from "./MoreInfoTabs/General";
 import Rooms from "./MoreInfoTabs/Rooms";
+import HotelImages from "./HotelImages";
 
 interface HotelMoreInformationModalProps {
   open: boolean;
@@ -39,9 +40,9 @@ function HotelMoreInformationModal({
       children: <div />,
     },
     {
-      key: "reviews",
+      key: "images",
       label: "تصاویر",
-      children: <div>dummy</div>,
+      children: <HotelImages slug={record.slug} />,
     },
     {
       key: "geom",

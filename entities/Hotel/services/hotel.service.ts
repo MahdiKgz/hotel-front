@@ -79,6 +79,30 @@ export const hotelAPI = createApi({
       }),
       invalidatesTags: ["room", "rooms"],
     }),
+    uploadCover: builder.mutation({
+      query: ({ slug, file }) => {
+        const formData = new FormData();
+        formData.append("cover", file);
+        return {
+          url: `/hotel/${slug}/cover`,
+          method: "POST",
+          body: formData,
+        };
+      },
+      invalidatesTags: ["hotels"],
+    }),
+    uploadImages: builder.mutation({
+      query: ({ slug, file }) => {
+        const formData = new FormData();
+        formData.append("images", file);
+        return {
+          url: `/hotel/${slug}/images`,
+          method: "POST",
+          body: formData,
+        };
+      },
+      invalidatesTags: ["hotels"],
+    }),
   }),
 });
 
@@ -93,4 +117,6 @@ export const {
   useDeleteRoomMutation,
   useGetOneRoomQuery,
   useUpdateRoomMutation,
+  useUploadCoverMutation,
+  useUploadImagesMutation,
 } = hotelAPI;
