@@ -17,3 +17,26 @@ export interface Hotel {
   description: string;
   manager_id: number;
 }
+
+export interface Reserve {
+  startDate: string;
+  endDate: string;
+  user: {
+    id: number;
+    fullName: string;
+    phone: string;
+    avatar: string | null;
+  };
+  room: {
+    id: number;
+    name: string;
+    slug: string;
+  };
+  hotel: {
+    id: number;
+    name: string;
+    slug: string;
+    cover: string | null;
+  };
+  note: string;
+}

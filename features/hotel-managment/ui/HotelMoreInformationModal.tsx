@@ -6,6 +6,7 @@ import type { TabsProps } from "antd";
 import General from "./MoreInfoTabs/General";
 import Rooms from "./MoreInfoTabs/Rooms";
 import HotelImages from "./HotelImages";
+import Reserves from "./MoreInfoTabs/Reserves/Reserves";
 
 interface HotelMoreInformationModalProps {
   open: boolean;
@@ -37,7 +38,7 @@ function HotelMoreInformationModal({
     {
       key: "reservations",
       label: "رزروها",
-      children: <div />,
+      children: <Reserves id={record.id} />,
     },
     {
       key: "images",
