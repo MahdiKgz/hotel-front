@@ -1,6 +1,6 @@
 "use client";
 import React, { useMemo, useState } from "react";
-import { Button, Table } from "antd";
+import { Button, Table, Tag } from "antd";
 import { FaPlusCircle } from "react-icons/fa";
 import ReservesRowActions from "./ReservesRowActions";
 import { Reserve } from "@/features/hotel-managment/types/hotel.types";
@@ -25,7 +25,9 @@ function Reserves({ id }: { id: number }) {
         key: "title",
         dataIndex: "title",
         title: "نام اتاق",
-        render: (_: unknown, { room }: Reserve) => <>{room?.name}</>,
+        render: (_: unknown, { room }: Reserve) => (
+          <>{room?.name || <Tag color="red" >ثبت نشده</Tag>}</>
+        ),
       },
       {
         key: "startDate",
@@ -70,7 +72,7 @@ function Reserves({ id }: { id: number }) {
         bordered
         className="w-full"
       />
-      <AddReservationModal open={open} setOpen={setOpen} />
+      <AddReservationModal open={open} setOpen={setOpen} hotelId={id} />
     </div>
   );
 }

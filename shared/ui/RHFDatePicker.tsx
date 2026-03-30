@@ -1,5 +1,6 @@
 import { Controller } from "react-hook-form";
 import { DatePicker } from "antd";
+import dayjs from "dayjs";
 
 function RHFDatePicker({
   name,
@@ -25,10 +26,10 @@ function RHFDatePicker({
           <div className="w-full flex flex-col items-start gap-1.5">
             <DatePicker
               className="filter-date-control"
-              value={value}
-              onChange={(date, dateString) =>
-                field.onChange(dateString || null)
-              }
+              value={value ? dayjs(value) : null}
+              onChange={(date) => {
+                field.onChange(date ? date.format(format) : null);
+              }}
               onBlur={field.onBlur}
               placeholder={placeholder}
               format={format}

@@ -109,6 +109,7 @@ export const hotelAPI = createApi({
         method: "POST",
         body: payload,
       }),
+      invalidatesTags: ["reserves", "rooms"],
     }),
     getReserves: builder.query({
       query: (hotelId) => ({
@@ -133,4 +134,5 @@ export const {
   useUploadCoverMutation,
   useUploadImagesMutation,
   useGetReservesQuery,
+  useCreateReserveMutation,
 } = hotelAPI;

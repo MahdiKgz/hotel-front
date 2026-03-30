@@ -1,6 +1,8 @@
+import { useCreateReserveMutation } from "@/entities/Hotel/services/hotel.service";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
-export default function useAddReserve() {
+export default function useAddReserve(hotelId: number) {
   const methods = useForm({
     mode: "onChange",
   });
@@ -10,8 +12,16 @@ export default function useAddReserve() {
     formState: { isValid },
   } = methods;
 
+  const [createReserve, { isLoading: isSubmittingForm }] =
+    useCreateReserveMutation();
+
   const onSubmit = async (data: unknown) => {
-    console.log("Payload of add reserve", data);
+    try {
+      await createReserve({ ...data, hotelId }).unwrap();
+      toast.success("رزرو با موفقیت ایجاد شد.");
+    } catch (err) {
+      toast.error(err?.data?.message || "مشکلی در ایجاد رزرو وجود دارد.");
+    }
   };
 
   return {
@@ -19,5 +29,6 @@ export default function useAddReserve() {
     handleSubmit,
     isValid,
     onSubmit,
+    isSubmittingForm,
   };
 }

@@ -6,9 +6,14 @@ import AddReservationForm from "./AddReservationForm";
 interface AddReservationModalProps {
   open: boolean;
   setOpen: Dispatch<SetStateAction<boolean>>;
+  hotelId: number;
 }
 
-function AddReservationModal({ open, setOpen }: AddReservationModalProps) {
+function AddReservationModal({
+  open,
+  setOpen,
+  hotelId,
+}: AddReservationModalProps) {
   return (
     <Modal
       title="ایجاد رزرو"
@@ -17,7 +22,7 @@ function AddReservationModal({ open, setOpen }: AddReservationModalProps) {
       footer={null}
       width={1000}
     >
-      <AddReservationForm />
+      <AddReservationForm hotelId={hotelId} />
     </Modal>
   );
 }

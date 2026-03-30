@@ -6,9 +6,27 @@ import RHFSelect from "@/shared/ui/RHFSelect";
 import RHFDatePicker from "@/shared/ui/RHFDatePicker";
 import { RHFInput } from "@/shared/ui/RHFInput";
 import { Button } from "antd";
+import { useGetRoomsQuery } from "@/entities/Hotel/services/hotel.service";
+import { Room } from "@/features/hotel-managment/types/room.types";
 
-function AddReservationForm() {
-  const { methods, handleSubmit, isValid, onSubmit } = useAddReserve();
+function AddReservationForm({ hotelId }: { hotelId: number }) {
+  const { methods, handleSubmit, isValid, onSubmit } = useAddReserve(hotelId);
+
+  const { data: roomsResponse } = useGetRoomsQuery(hotelId, {
+    refetchOnFocus: true,
+  });
+
+  const roomsOptions = roomsResponse?.data.rooms.map(
+    (room: Room & { id: number }) => {
+      if (room.status === "EMPTY") {
+        return {
+          value: room.id,
+          label: room.name,
+        };
+      } else return {};
+    },
+  );
+
   return (
     <FormProvider {...methods}>
       <form
@@ -17,24 +35,18 @@ function AddReservationForm() {
       >
         <div className="w-full flex items-center gap-5">
           <RHFSelect
-            placeholder="میهمان را انتخاب کنید"
-            name="userId"
-            rules={{ required: "میهمان را وارد کنید" }}
-            options={[{ value: 1, label: "محمد امین محمدپور" }]}
-          />
-          <RHFSelect
             placeholder="اتاق را انتخاب کنید"
             name="roomId"
             rules={{ required: "اتاق را وارد کنید" }}
-            options={[{ value: 1, label: "اتاق ماه عسل" }]}
+            options={roomsOptions}
           />
-        </div>
-        <div className="w-full flex items-center gap-5">
           <RHFDatePicker
             name="startDate"
             placeholder="تاریخ شروع را وارد کنید"
             rules={{ required: "تاریخ شروع الزامی است." }}
           />
+        </div>
+        <div className="w-full flex items-center gap-5">
           <RHFDatePicker
             name="endDate"
             placeholder="تاریخ پایان را وارد کنید"
@@ -44,6 +56,7 @@ function AddReservationForm() {
         <RHFInput
           name="note"
           placeholder="اگر توضیح خاصی مد نظرتان هست اینجا بنویسید."
+          isTextArea
         />
         <div className="w-full flex justify-end">
           <Button
