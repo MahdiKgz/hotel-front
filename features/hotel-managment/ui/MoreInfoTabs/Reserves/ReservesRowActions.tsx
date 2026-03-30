@@ -3,15 +3,26 @@ import { Reserve } from "@/features/hotel-managment/types/hotel.types";
 import { Button, Popconfirm } from "antd";
 import { FaBan, FaBars } from "react-icons/fa";
 import ReserveInfoModal from "./ReserveInfoModal";
+import { useCancelReserveMutation } from "@/entities/Hotel/services/hotel.service";
+import { toast } from "react-toastify";
 
 interface ReservesRowActionsProps {
   row: Reserve;
-  id: number;
 }
 
-function ReservesRowActions({ row, id }: ReservesRowActionsProps) {
+function ReservesRowActions({ row }: ReservesRowActionsProps) {
   const [openInformation, setOpenInformation] = useState(false);
 
+  const [cancelReserve] = useCancelReserveMutation();
+
+  const handleCancelReserve = async () => {
+    try {
+      await cancelReserve(row.roomId).unwrap();
+      toast.success("رزرو اتاق لغو شد.");
+    } catch {
+      toast.error("در لغو رزرو مشکلی وجود دارد.");
+    }
+  };
   return (
     <div className="flex items-center gap-2.5">
       <Button type="text" onClick={() => setOpenInformation(() => true)}>
@@ -23,7 +34,7 @@ function ReservesRowActions({ row, id }: ReservesRowActionsProps) {
         okType="danger"
         okText="لغو"
         cancelText="انصراف"
-        onConfirm={() => console.log("cancel reserve for id ", id)}
+        onConfirm={handleCancelReserve}
       >
         <Button danger type="text">
           <FaBan size={14} />

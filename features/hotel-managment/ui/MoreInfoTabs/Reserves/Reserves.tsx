@@ -49,7 +49,7 @@ function Reserves({ id }: { id: number }) {
         key: "operations",
         title: "عملیات",
         render: (_: unknown, record: Reserve) => (
-          <ReservesRowActions row={record} id={id} />
+          <ReservesRowActions row={record} />
         ),
       },
     ],

@@ -117,6 +117,13 @@ export const hotelAPI = createApi({
       }),
       providesTags: ["reserves"],
     }),
+    cancelReserve: builder.mutation({
+      query: (roomId) => ({
+        url: `/reserve/${roomId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["rooms", "reserves"],
+    }),
   }),
 });
 
@@ -135,4 +142,5 @@ export const {
   useUploadImagesMutation,
   useGetReservesQuery,
   useCreateReserveMutation,
+  useCancelReserveMutation,
 } = hotelAPI;
