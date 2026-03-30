@@ -14,7 +14,7 @@ export const hotelAPI = createApi({
     },
   }),
 
-  tagTypes: ["hotels", "rooms", "hotel", "room"],
+  tagTypes: ["hotels", "rooms", "hotel", "room", "reserves"],
 
   endpoints: (builder) => ({
     addHotel: builder.mutation({
@@ -103,6 +103,19 @@ export const hotelAPI = createApi({
       },
       invalidatesTags: ["hotels"],
     }),
+    createReserve: builder.mutation({
+      query: (payload) => ({
+        url: `/reserve`,
+        method: "POST",
+        body: payload,
+      }),
+    }),
+    getReserves: builder.query({
+      query: (hotelId) => ({
+        url: `/reserve/${hotelId}`,
+      }),
+      providesTags: ["reserves"],
+    }),
   }),
 });
 
@@ -119,4 +132,5 @@ export const {
   useUpdateRoomMutation,
   useUploadCoverMutation,
   useUploadImagesMutation,
+  useGetReservesQuery,
 } = hotelAPI;

@@ -4,9 +4,20 @@ import { Button, Table } from "antd";
 import { FaPlusCircle } from "react-icons/fa";
 import ReservesRowActions from "./ReservesRowActions";
 import { Reserve } from "@/features/hotel-managment/types/hotel.types";
+import AddReservationModal from "./AddReservationModal";
+import { useGetReservesQuery } from "@/entities/Hotel/services/hotel.service";
 
 function Reserves({ id }: { id: number }) {
   const [open, setOpen] = useState(false);
+
+  const { data: reservesResponse } = useGetReservesQuery(id, {
+    refetchOnFocus: true,
+  });
+
+  const reserves: Reserve[] = useMemo(
+    () => reservesResponse?.data?.reserves ?? [],
+    [reservesResponse],
+  );
 
   const columns = useMemo(
     () => [
@@ -14,7 +25,7 @@ function Reserves({ id }: { id: number }) {
         key: "title",
         dataIndex: "title",
         title: "نام اتاق",
-        render: (_: unknown, { room }) => <>{room.name}</>,
+        render: (_: unknown, { room }: Reserve) => <>{room?.name}</>,
       },
       {
         key: "startDate",
@@ -52,41 +63,14 @@ function Reserves({ id }: { id: number }) {
 
       <Table
         columns={columns}
-        dataSource={[
-          {
-            hotelId: 1,
-            userId: 1,
-            roomId: 1,
-            startDate: "2026-03-30",
-            endDate: "2026-04-02",
-            note: "تمایل به اتاق با ویترین دریا داریم",
-            createdAt: "2026-03-29T16:13:16.000Z",
-            updatedAt: "2026-03-29T16:13:16.000Z",
-            room: {
-              id: 1,
-              name: "اتاق ماه عسل",
-              slug: "honey-moon",
-            },
-            user: {
-              id: 1,
-              fullName: "Mahdi khoshghadamzadeh",
-              phone: "09388228174",
-              avatar: null,
-            },
-            hotel: {
-              id: 1,
-              name: "اسپیناس پالاس",
-              slug: "espinas-palace",
-              cover: null,
-            },
-          },
-        ]}
+        dataSource={reserves}
         pagination={{ pageSize: 10 }}
         scroll={{ x: "max-content" }}
         rowKey="id"
         bordered
         className="w-full"
       />
+      <AddReservationModal open={open} setOpen={setOpen} />
     </div>
   );
 }

@@ -15,7 +15,7 @@ function ReserveInfoModal({ open, setOpen, reserve }: ReserveInfoModalProps) {
       onCancel={() => setOpen(() => false)}
       width={1000}
       footer={null}
-      title={`اطلاعات ررزو ${reserve?.room.name}`}
+      title={`اطلاعات ررزو ${reserve?.room?.name}`}
     >
       <Descriptions bordered>
         <Descriptions.Item label="نام اتاق">
@@ -28,11 +28,11 @@ function ReserveInfoModal({ open, setOpen, reserve }: ReserveInfoModalProps) {
           {new Date(reserve?.endDate).toLocaleDateString("fa-IR")}
         </Descriptions.Item>
         <Descriptions.Item label="رزرو شده توسط">
-          {reserve?.user.fullName}
+          {reserve?.user?.fullName}
         </Descriptions.Item>
 
         <Descriptions.Item label="شماره تماس">
-          {reserve?.user.phone}
+          {reserve?.user?.phone}
         </Descriptions.Item>
         <Descriptions.Item label="وصعیت رزرو">
           <Tag color="green">معتبر</Tag>
