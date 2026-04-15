@@ -1,3 +1,5 @@
+"use client";
+import WithAuth from "@/shared/configs/WithAuth";
 import HeaderActions from "@/widgets/dashboard/layout/HeaderActions";
 import Sidebar from "@/widgets/dashboard/layout/Sidebar";
 import UserAvatar from "@/widgets/dashboard/layout/UserAvatar";
@@ -24,4 +26,4 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default DashboardLayout;
+export default WithAuth(DashboardLayout);
