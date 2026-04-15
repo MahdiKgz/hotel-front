@@ -26,7 +26,7 @@ function Reserves({ id }: { id: number }) {
         dataIndex: "title",
         title: "نام اتاق",
         render: (_: unknown, { room }: Reserve) => (
-          <>{room?.name || <Tag color="red" >ثبت نشده</Tag>}</>
+          <>{room?.name || <Tag color="red">ثبت نشده</Tag>}</>
         ),
       },
       {
@@ -53,7 +53,7 @@ function Reserves({ id }: { id: number }) {
         ),
       },
     ],
-    [id],
+    [],
   );
   return (
     <div className="w-full flex flex-col items-start gap-2">

@@ -7,6 +7,8 @@ import General from "./MoreInfoTabs/General";
 import Rooms from "./MoreInfoTabs/Rooms";
 import HotelImages from "./HotelImages";
 import Reserves from "./MoreInfoTabs/Reserves/Reserves";
+import RHFSelect from "@/shared/ui/RHFSelect";
+import HotelAmenities from "./MoreInfoTabs/Amenities/HotelAmenities";
 
 interface HotelMoreInformationModalProps {
   open: boolean;
@@ -33,7 +35,7 @@ function HotelMoreInformationModal({
     {
       key: "amenities",
       label: "امکانات",
-      children: <div />,
+      children: <HotelAmenities id={record.id} />,
     },
     {
       key: "reservations",

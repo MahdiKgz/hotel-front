@@ -14,7 +14,7 @@ export const hotelAPI = createApi({
     },
   }),
 
-  tagTypes: ["hotels", "rooms", "hotel", "room", "reserves"],
+  tagTypes: ["hotels", "rooms", "hotel", "room", "reserves", "amenities"],
 
   endpoints: (builder) => ({
     addHotel: builder.mutation({
@@ -124,6 +124,18 @@ export const hotelAPI = createApi({
       }),
       invalidatesTags: ["rooms", "reserves"],
     }),
+    getHotelAmenities: builder.query({
+      query: (hotelId) => `/hotel/${hotelId}/amenity`,
+      providesTags: ["amenities"],
+    }),
+    createHotelAmenities: builder.mutation({
+      query: ({ hotelId, amenities }) => ({
+        url: `/hotel/${hotelId}/amenity`,
+        method: "POST",
+        body: amenities,
+      }),
+      invalidatesTags: ["amenities"],
+    }),
   }),
 });
 
@@ -143,4 +155,6 @@ export const {
   useGetReservesQuery,
   useCreateReserveMutation,
   useCancelReserveMutation,
+  useGetHotelAmenitiesQuery,
+  useCreateHotelAmenitiesMutation,
 } = hotelAPI;
