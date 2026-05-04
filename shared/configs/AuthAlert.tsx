@@ -1,7 +1,7 @@
 "use client";
+import React from "react";
 import { Alert, Button } from "antd";
 import Link from "next/link";
-import React from "react";
 
 function AuthAlert() {
   return (

@@ -9,6 +9,8 @@ import HotelImages from "./HotelImages";
 import Reserves from "./MoreInfoTabs/Reserves/Reserves";
 import RHFSelect from "@/shared/ui/RHFSelect";
 import HotelAmenities from "./MoreInfoTabs/Amenities/HotelAmenities";
+import GeometryMap from "./MoreInfoTabs/gemetry/GeometryMap";
+import GeometryForm from "./MoreInfoTabs/gemetry/GeometryForm";
 
 interface HotelMoreInformationModalProps {
   open: boolean;
@@ -50,7 +52,7 @@ function HotelMoreInformationModal({
     {
       key: "geom",
       label: "مختصات جغرافیایی",
-      children: <div>dummy</div>,
+      children: <GeometryForm hotelId={record.id} />,
     },
   ];
 

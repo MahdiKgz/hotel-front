@@ -14,7 +14,15 @@ export const hotelAPI = createApi({
     },
   }),
 
-  tagTypes: ["hotels", "rooms", "hotel", "room", "reserves", "amenities"],
+  tagTypes: [
+    "hotels",
+    "rooms",
+    "hotel",
+    "room",
+    "reserves",
+    "amenities",
+    "geometry",
+  ],
 
   endpoints: (builder) => ({
     addHotel: builder.mutation({
@@ -136,6 +144,14 @@ export const hotelAPI = createApi({
       }),
       invalidatesTags: ["amenities"],
     }),
+
+    createHotelGeometry: builder.mutation({
+      query: ({ hotelId, payload }) => ({
+        url: `/hotel/${hotelId}/geometry`,
+        method: "POST",
+        body: payload,
+      }),
+    }),
   }),
 });
 
@@ -157,4 +173,5 @@ export const {
   useCancelReserveMutation,
   useGetHotelAmenitiesQuery,
   useCreateHotelAmenitiesMutation,
+  useCreateHotelGeometryMutation,
 } = hotelAPI;
