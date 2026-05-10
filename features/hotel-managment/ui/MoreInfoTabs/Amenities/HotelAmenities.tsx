@@ -1,7 +1,11 @@
-import { useGetHotelAmenitiesQuery } from "@/entities/Hotel/services/hotel.service";
-import { Button, Table, Tag } from "antd";
-import React, { useMemo, useState } from "react";
+import {
+  useDeleteHotelAmenityMutation,
+  useGetHotelAmenitiesQuery,
+} from "@/entities/Hotel/services/hotel.service";
+import { Button, Popconfirm, Table, Tag } from "antd";
+import React, { useCallback, useMemo, useState } from "react";
 import { FaCirclePlus } from "react-icons/fa6";
+import { MdDeleteOutline } from "react-icons/md";
 import { toast } from "react-toastify";
 import AddHotelAmenitiesModal from "./AddHotelAmenitiesModal";
 
@@ -11,6 +15,20 @@ interface HotelAmenitiesProps {
 
 function HotelAmenities({ id }: HotelAmenitiesProps) {
   const [isAddModalOpen, setOpen] = useState<boolean>(false);
+  const [deleteHotelAmenity] = useDeleteHotelAmenityMutation();
+
+  const handleDeleteHotelAmenity = useCallback(
+    async (amenityId: number) => {
+      try {
+        await deleteHotelAmenity({ hotelId: id, amenityId }).unwrap();
+        toast.success("امکانات هتل با موفقیت حذف شد");
+      } catch {
+        toast.error("در حذف امکانات هتل مشکلی وجود دارد");
+      }
+    },
+    [deleteHotelAmenity, id],
+  );
+
   const hotelAmenitiesColumns = useMemo(
     () => [
       {
@@ -41,18 +59,22 @@ function HotelAmenities({ id }: HotelAmenitiesProps) {
       {
         key: "operations",
         title: "عملیات پیشرفته",
-        render: (_: unknown, record: any) => (
-          <Button
-            onClick={() => {
-              console.log("hotelId ", id, "amenity id", record.id);
-            }}
+        render: (_: unknown, record: { id: number }) => (
+          <Popconfirm
+            title="آیا مطمئن هستید؟"
+            description="این عمل برگشت ناپذیر خواهد بود"
+            placement="bottom"
+            okText="حذف"
+            cancelText="انصراف"
+            okType="danger"
+            onConfirm={() => handleDeleteHotelAmenity(record.id)}
           >
-            id
-          </Button>
+            <Button type="link" danger icon={<MdDeleteOutline size={18} />} />
+          </Popconfirm>
         ),
       },
     ],
-    [id],
+    [handleDeleteHotelAmenity],
   );
 
   const { data: hotelAmenities } = useGetHotelAmenitiesQuery(id, {

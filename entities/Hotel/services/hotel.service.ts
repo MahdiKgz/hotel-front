@@ -144,6 +144,13 @@ export const hotelAPI = createApi({
       }),
       invalidatesTags: ["amenities"],
     }),
+    deleteHotelAmenity: builder.mutation({
+      query: ({ hotelId, amenityId }) => ({
+        url: `/hotel/${hotelId}/amenity/${amenityId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["amenities"],
+    }),
 
     createHotelGeometry: builder.mutation({
       query: ({ hotelId, payload }) => ({
@@ -173,5 +180,6 @@ export const {
   useCancelReserveMutation,
   useGetHotelAmenitiesQuery,
   useCreateHotelAmenitiesMutation,
+  useDeleteHotelAmenityMutation,
   useCreateHotelGeometryMutation,
 } = hotelAPI;
