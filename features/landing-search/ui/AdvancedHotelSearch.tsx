@@ -93,35 +93,9 @@ function visiblePages(current: number, total: number) {
   return Array.from({ length: 5 }, (_, index) => start + index);
 }
 
-function reservationHref(
-  hotel: LandingHotel,
-  searchFilters: HotelSearchParams | null,
-) {
-  const params = new URLSearchParams({
-    hotel: hotel.slug,
-    hotelId: String(hotel.id),
-    guests: String(searchFilters?.capacity || 1),
-  });
-  const room = hotel.rooms[0];
-  if (room) params.set("roomId", String(room.id));
-  if (searchFilters?.checkIn) params.set("checkIn", searchFilters.checkIn);
-  if (searchFilters?.checkOut) params.set("checkOut", searchFilters.checkOut);
-  return `/dashboard/reserves?${params.toString()}`;
-}
-
-function HotelResultCard({
-  hotel,
-  searchFilters,
-}: {
-  hotel: LandingHotel;
-  searchFilters: HotelSearchParams | null;
-}) {
+function HotelResultCard({ hotel }: { hotel: LandingHotel }) {
   return (
-    <Link
-      href={reservationHref(hotel, searchFilters)}
-      className="hotel-result-card"
-      aria-label={`انتخاب ${hotel.name} و ادامه رزرو در پنل کاربری`}
-    >
+    <article className="hotel-result-card">
       <div
         className="hotel-result-image"
         style={{ backgroundImage: `url(${JSON.stringify(resolveHotelImage(hotel))})` }}
@@ -171,10 +145,10 @@ function HotelResultCard({
                 : `${priceFormatter.format(hotel.startingPrice)} تومان`}
             </strong>
           </div>
-          <span className="reserve-card-action">انتخاب اتاق</span>
+          <Link href="/login">انتخاب اتاق</Link>
         </div>
       </div>
-    </Link>
+    </article>
   );
 }
 
@@ -620,11 +594,7 @@ export default function AdvancedHotelSearch() {
 
               <div className="hotel-result-grid">
                 {searchResult.hotels.map((hotel) => (
-                  <HotelResultCard
-                    key={hotel.id}
-                    hotel={hotel}
-                    searchFilters={submittedFilters}
-                  />
+                  <HotelResultCard key={hotel.id} hotel={hotel} />
                 ))}
               </div>
 

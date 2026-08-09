@@ -34,6 +34,5 @@ export const landingAPI = createApi({
 
 export const {
   useGetLandingFiltersQuery,
-  useSearchLandingHotelsQuery,
   useLazySearchLandingHotelsQuery,
 } = landingAPI;

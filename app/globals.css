@@ -3090,7 +3090,6 @@ input {
 }
 
 .landing-page .hotel-result-card {
-  display: block;
   min-width: 0;
   overflow: hidden;
   border: 1px solid #e6e2d9;
@@ -3255,7 +3254,7 @@ input {
   white-space: nowrap;
 }
 
-.landing-page .reserve-card-action {
+.landing-page .hotel-result-footer > a {
   flex: 0 0 auto;
   padding: 8px 10px;
   border-radius: 8px;
@@ -3264,7 +3263,7 @@ input {
   font-weight: 800;
 }
 
-.landing-page .hotel-result-card:hover .reserve-card-action {
+.landing-page .hotel-result-footer > a:hover {
   background: #ffc636;
 }
 
