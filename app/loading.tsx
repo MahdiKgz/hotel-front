@@ -1,16 +1,12 @@
 "use client";
-import { Spin } from "antd";
-import React from "react";
 
-function Loading() {
+import { Spin } from "antd";
+
+export default function Loading() {
   return (
-    <div className="w-full h-screen flex flex-col items-center justify-center gap-10">
+    <div className="auth-guard-page">
       <Spin size="large" />
-      <h1 className="text-gray-900! font-bold text-center text-2xl">
-        در حال بارگزاری
-      </h1>
+      <strong>در حال آماده‌سازی تجربه سفر شما...</strong>
     </div>
   );
 }
-
-export default Loading;

@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import { useRegisterMutation } from "@/entities/User/services/auth.service";
 
 export default function useRegister() {
-  const methods = useForm({
+  const methods = useForm<RegisterFormValues>({
     mode: "onBlur",
   });
   const {

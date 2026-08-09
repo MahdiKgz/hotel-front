@@ -4,15 +4,17 @@ import { RiLockPasswordLine, RiSmartphoneLine } from "react-icons/ri";
 
 function PasswordMethodLogin() {
   return (
-    <div className="w-full flex flex-col items-center justify-center gap-4">
+    <div className="auth-fields">
       <RHFInput
         name="phone"
+        label="شماره تلفن"
         placeholder="شماره تلفن خود را وارد کنید"
         rules={{ required: "شماره تلفن الزامیست" }}
         icon={<RiSmartphoneLine />}
       />
       <RHFInput
         name="password"
+        label="رمز عبور"
         placeholder="رمز عبور خود را وارد کنید"
         rules={{ required: "رمز عبور الزامیست" }}
         isPassword

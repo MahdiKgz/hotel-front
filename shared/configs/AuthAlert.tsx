@@ -1,25 +1,22 @@
 "use client";
-import React from "react";
-import { Alert, Button } from "antd";
+
 import Link from "next/link";
+import { LuArrowRight, LuLockKeyhole, LuPlane } from "react-icons/lu";
 
-function AuthAlert() {
+export default function AuthAlert() {
   return (
-    <div className="w-full h-screen flex flex-col items-center justify-center gap-10">
-      <Alert
-        className="text-2xl! font-bold p-6! rounded-xl!"
-        title="شما مجاز به ورود به این صفحه نیستید"
-        banner
-        type="error"
-      />
-
-      <Link href="/register" className="p-4 h-6 rounded">
-        <Button type="primary" color="blue" size="large">
-          ورود به حساب کاربری
-        </Button>
+    <main className="auth-guard-page">
+      <Link href="/" className="brand auth-guard-brand">
+        <span className="brand-mark"><LuPlane /></span>
+        <span><strong>هُما</strong><small>همراهِ سفرهای تو</small></span>
       </Link>
-    </div>
+      <section className="auth-guard-card">
+        <span><LuLockKeyhole /></span>
+        <small>دسترسی محدود</small>
+        <h1>ابتدا وارد حساب خود شوید</h1>
+        <p>برای مشاهده رزروها و مدیریت سفرها، ورود به حساب کاربری ضروری است.</p>
+        <Link href="/login">ورود به حساب <LuArrowRight /></Link>
+      </section>
+    </main>
   );
 }
-
-export default AuthAlert;

@@ -27,17 +27,17 @@ function AdminReportChart({
         style={{ margin: " 0 auto" }}
       >
         <LineChart data={reservesTimeline}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="date" />
-          <YAxis allowDecimals={false} />
-          <Tooltip />
+          <CartesianGrid strokeDasharray="4 6" stroke="#e8e5dd" vertical={false} />
+          <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fill: "#8a8a8a", fontSize: 11 }} />
+          <YAxis allowDecimals={false} axisLine={false} tickLine={false} tick={{ fill: "#8a8a8a", fontSize: 11 }} />
+          <Tooltip contentStyle={{ borderRadius: 12, border: "1px solid #ebe7dc", fontFamily: "ShabnamFarsi" }} />
           <Line
             type="monotone"
             dataKey="count"
-            stroke="#2563eb"
-            strokeWidth={2}
-            dot={{ r: 4 }}
-            activeDot={{ r: 6 }}
+            stroke="#e4a10d"
+            strokeWidth={3}
+            dot={{ r: 4, fill: "#ffffff", strokeWidth: 3 }}
+            activeDot={{ r: 6, fill: "#f3ad12" }}
           />
         </LineChart>
       </ResponsiveContainer>

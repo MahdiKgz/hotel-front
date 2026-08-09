@@ -1,9 +1,8 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import useLogin from "../hooks/useLogin";
-import { Button, Spin } from "antd";
+import { Button } from "antd";
 import { FormProvider } from "react-hook-form";
 import PasswordMethodLogin from "./PasswordMethodLogin";
 import OTPMethodLogin from "./OTPMethodLogin";
@@ -23,7 +22,7 @@ function LoginForm() {
     <FormProvider {...methods}>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full flex flex-col items-start justify-center gap-4.5"
+        className="auth-form"
       >
         {mode === "password" ? (
           <PasswordMethodLogin />
@@ -36,19 +35,19 @@ function LoginForm() {
             mode === "password" ? setMode("otp") : setMode("password")
           }
           size="small"
-          className="text-sm!"
+          className="auth-method-button"
         >
           {mode === "password" ? "ورود با رمز یکبار مصرف" : "ورود با رمز عبور"}
         </Button>
         <Button
-          className="w-full"
+          className="auth-submit-button"
           size="large"
           color="primary"
           variant="solid"
           htmlType="submit"
           disabled={shouldDisableForm}
+          loading={isSubmittingRequest || isVerifyingOTP}
         >
-          {isSubmittingRequest || (isVerifyingOTP && <Spin />)}
           ورود به حساب
         </Button>
       </form>

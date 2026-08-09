@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { RHFInput } from "@/shared/ui/RHFInput";
-import { Button, Spin } from "antd";
+import { Button } from "antd";
 import { FormProvider } from "react-hook-form";
 import {
   RiUserLine,
@@ -23,16 +23,18 @@ function RegisterForm() {
     <FormProvider {...methods}>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full flex flex-col items-center justify-center gap-4.5"
+        className="auth-form"
       >
         <RHFInput
           name="fullName"
+          label="نام و نام خانوادگی"
           placeholder="نام کامل خود را وارد کنید"
           rules={{ required: "نام کامل الزامیست." }}
           icon={<RiUserLine />}
         />
         <RHFInput
           name="phone"
+          label="شماره تلفن"
           placeholder="شماره تلفن خود را وارد کنید"
           rules={{ required: "شماره تلفن الزامیست." }}
           icon={<RiSmartphoneLine />}
@@ -40,6 +42,7 @@ function RegisterForm() {
 
         <RHFInput
           name="password"
+          label="رمز عبور"
           placeholder="رمز عبور خود را وارد کنید"
           rules={{ required: "رمز عبور الزامیست." }}
           isPassword
@@ -51,10 +54,10 @@ function RegisterForm() {
           size="large"
           color="primary"
           variant="solid"
-          className="w-full"
+          className="auth-submit-button"
           disabled={shouldDisableForm}
+          loading={isRequestSubmitting}
         >
-          {isRequestSubmitting && <Spin />}
           ایجاد حساب
         </Button>
       </form>

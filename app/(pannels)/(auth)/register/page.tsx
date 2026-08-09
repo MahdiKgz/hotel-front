@@ -1,23 +1,21 @@
-import React from "react";
-import Link from "next/link";
 import RegisterForm from "@/features/register/ui/RegisterForm";
+import Link from "next/link";
+import { LuUserPlus } from "react-icons/lu";
 
-function Register() {
+export default function Register() {
   return (
-    <div className="bg-white shadow-lg shadow-shadow-primary w-80 p-7 rounded-xl flex flex-col items-center justify-center gap-8 relative">
-      <div className="register-form__header w-full flex flex-col items-center justify-center gap-2">
-        <h1 className="font-bold text-[18px]">ساخت حساب کاربری جدید</h1>
-        <div className="flex items-center gap-1">
-          <span className="font-semibold text-xs">حساب کاربری دارید؟</span>
-          <Link className="font-medium text-xs text-blue-500!" href="/login">
-            ورود
-          </Link>
-        </div>
+    <div className="auth-card">
+      <div className="auth-card-icon"><LuUserPlus /></div>
+      <div className="auth-card-header">
+        <span>به هُما خوش آمدید</span>
+        <h1>ساخت حساب کاربری</h1>
+        <p>تنها چند قدم تا تجربه آسان‌تر سفر فاصله دارید.</p>
       </div>
       <RegisterForm />
-      <div className="absolute -z-1 -top-4 right-1/2 left-1/2 translate-x-1/2 mx-auto bg-brand! w-87 h-25 rounded-xl"></div>
+      <div className="auth-switch-link">
+        <span>قبلاً ثبت‌نام کرده‌اید؟</span>
+        <Link href="/login">ورود به حساب</Link>
+      </div>
     </div>
   );
 }
-
-export default Register;

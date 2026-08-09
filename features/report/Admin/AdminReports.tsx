@@ -1,31 +1,28 @@
 import React from "react";
 import useGetAdminReport from "./hooks/useGetAdminReport";
 import AdminReportChart from "./AdminReportChart";
+import { LuBedDouble, LuCalendarCheck2, LuHotel } from "react-icons/lu";
 
 function AdminReports() {
   const { adminReport } = useGetAdminReport();
   return (
-    <div className="w-full flex flex-col items-start gap-4">
-      <div className="w-full flex flex-wrap lg:flex-nowrap items-start justify-between gap-3">
-        <div className="w-full lg:w-1/3 p-2 flex flex-col items-start gap-1.5 border-2 border-gray-300 rounded-xl">
-          <h1 className="text-sm font-semibold! text-zinc-600">مجموع هتل ها</h1>
-          <span className="text-lg font-bold">{adminReport?.totalHotels}</span>
+    <div className="admin-reports">
+      <div className="admin-metrics-grid">
+        <div className="admin-metric-card">
+          <span><LuHotel /></span>
+          <div><small>مجموع هتل‌ها</small><strong>{adminReport?.totalHotels ?? "—"}</strong><em>هتل فعال در سامانه</em></div>
         </div>
-        <div className="w-full lg:w-1/3 p-2 flex flex-col items-start gap-1.5 border-2 border-gray-300 rounded-xl">
-          <h1 className="text-sm font-semibold! text-zinc-600">
-            مجموع اتاق ها
-          </h1>
-          <span className="text-lg font-bold">{adminReport?.totalRooms}</span>
+        <div className="admin-metric-card">
+          <span><LuBedDouble /></span>
+          <div><small>مجموع اتاق‌ها</small><strong>{adminReport?.totalRooms ?? "—"}</strong><em>ظرفیت قابل رزرو</em></div>
         </div>
-        <div className="w-full lg:w-1/3 p-2 flex flex-col items-start gap-1.5 border-2 border-gray-300 rounded-xl">
-          <h1 className="text-sm font-semibold! text-zinc-600">
-            مجموع رزرو ها
-          </h1>
-          <span className="text-lg font-bold">{adminReport?.totalRooms}</span>
+        <div className="admin-metric-card">
+          <span><LuCalendarCheck2 /></span>
+          <div><small>مجموع رزروها</small><strong>{adminReport?.totalRooms ?? "—"}</strong><em>رزرو ثبت‌شده</em></div>
         </div>
       </div>
-      <div className="admin-report-charts w-full flex flex-col items-start gap-3.5">
-        <h1 className="text-xl lg:text-lg font-bold">آمار رزرو ها</h1>
+      <div className="admin-chart-card">
+        <div><span>گزارش عملکرد</span><h2>روند رزروها</h2></div>
         <AdminReportChart reservesTimeline={adminReport?.reservesTimeline} />
       </div>
     </div>

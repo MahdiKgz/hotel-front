@@ -4,8 +4,13 @@ import { RHFInput } from "@/shared/ui/RHFInput";
 import { Button } from "antd";
 import { toast } from "react-toastify";
 import { RiLockPasswordLine, RiSmartphoneLine } from "react-icons/ri";
+import type { FieldValues, UseFormReturn } from "react-hook-form";
 
-function OTPMethodLogin({ methods }) {
+interface ApiError {
+  data?: { message?: string };
+}
+
+function OTPMethodLogin({ methods }: { methods: UseFormReturn<FieldValues> }) {
   const [sendOTP, { isLoading }] = useSendOTPMutation();
 
   const handleSendOTP = async () => {
@@ -18,24 +23,26 @@ function OTPMethodLogin({ methods }) {
     try {
       await sendOTP({ phone }).unwrap();
       toast.success("درخواست با موفقیت ارسال شد.");
-    } catch (error: any) {
-      if (error?.data?.message === "User not found !!") {
+    } catch (error: unknown) {
+      const message = (error as ApiError).data?.message;
+      if (message === "User not found !!") {
         toast.error("کاربری با این شماره تلفن وجود ندارد.");
-      } else if (error?.data?.message?.includes("OTP already sent")) {
+      } else if (message?.includes("OTP already sent")) {
         toast.error(
           "رمز یکبار مصرف برای شما ارسال شده. بعد از یک دقیقه مجدد تلاش کنید",
         );
       }
-      if (error.data.message === "You are banned.") {
+      if (message === "You are banned.") {
         toast.error("شما مسدود شده اید.");
       }
     }
   };
 
   return (
-    <div className="w-full flex flex-col items-center justify-center gap-4">
+    <div className="auth-fields">
       <RHFInput
         name="phone"
+        label="شماره تلفن"
         placeholder="شماره تلفن خود را وارد کنید"
         rules={{ required: "شماره تلفن الزامیست" }}
         icon={<RiSmartphoneLine />}
@@ -44,6 +51,7 @@ function OTPMethodLogin({ methods }) {
       <div className="flex w-full gap-2">
         <RHFInput
           name="otp"
+          label="رمز یکبار مصرف"
           placeholder="رمز یکبار مصرف خود را وارد کنید"
           rules={{ required: "رمز یکبار مصرف الزامیست" }}
           icon={<RiLockPasswordLine />}
@@ -53,6 +61,7 @@ function OTPMethodLogin({ methods }) {
           type="primary"
           size="large"
           onClick={handleSendOTP}
+          className="auth-otp-button"
         >
           دریافت رمز
         </Button>
