@@ -7,10 +7,12 @@ import {
   LuPlane,
   LuShieldCheck,
 } from "react-icons/lu";
+import AuthAccessBoundary from "@/features/login/ui/AuthAccessBoundary";
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="auth-shell">
+    <AuthAccessBoundary>
+      <div className="auth-shell">
       <aside className="auth-visual">
         <div className="auth-visual-shade" />
         <Link href="/" className="brand auth-brand" aria-label="هُما - صفحه اصلی">
@@ -42,6 +44,7 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
         <div className="auth-content">{children}</div>
         <p className="auth-copyright">© ۱۴۰۵ هُما؛ تجربه‌ای امن برای سفرهای شما</p>
       </section>
-    </div>
+      </div>
+    </AuthAccessBoundary>
   );
 }

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { FormEvent, useMemo, useState } from "react";
 import {
+  LuArrowLeft,
   LuBuilding2,
   LuCalendarDays,
   LuCheck,
@@ -19,10 +20,10 @@ import {
   LuX,
 } from "react-icons/lu";
 import {
-  API_BASE_URL,
   useGetLandingFiltersQuery,
   useLazySearchLandingHotelsQuery,
 } from "@/entities/Landing/services/landing.service";
+import { API_BASE_URL } from "@/shared/configs/api";
 import type {
   HotelSearchParams,
   HotelSort,
@@ -93,62 +94,86 @@ function visiblePages(current: number, total: number) {
   return Array.from({ length: 5 }, (_, index) => start + index);
 }
 
-function HotelResultCard({ hotel }: { hotel: LandingHotel }) {
+function hotelDetailHref(hotel: LandingHotel, search?: HotelSearchParams | null) {
+  const params = new URLSearchParams();
+  if (search?.checkIn) params.set("checkIn", search.checkIn);
+  if (search?.checkOut) params.set("checkOut", search.checkOut);
+  if (search?.capacity) params.set("capacity", String(search.capacity));
+  const query = params.toString();
+  return `/hotels/${encodeURIComponent(hotel.slug)}${query ? `?${query}` : ""}`;
+}
+
+function HotelResultCard({
+  hotel,
+  search,
+}: {
+  hotel: LandingHotel;
+  search?: HotelSearchParams | null;
+}) {
   return (
-    <article className="hotel-result-card">
-      <div
-        className="hotel-result-image"
-        style={{ backgroundImage: `url(${JSON.stringify(resolveHotelImage(hotel))})` }}
-      >
-        <span className="hotel-stars" aria-label={`${hotel.stars} ستاره`}>
-          {Array.from({ length: hotel.stars }, (_, index) => (
-            <LuStar key={index} aria-hidden="true" />
-          ))}
-        </span>
-        <span className="available-room-count">
-          {numberFormatter.format(hotel.matchingRoomCount)} اتاق مطابق جستجو
-        </span>
-      </div>
-
-      <div className="hotel-result-body">
-        <div className="hotel-result-heading">
-          <div>
-            <span>{hotel.province?.name || "ایران"}</span>
-            <h3>{hotel.name}</h3>
-          </div>
-          <LuBuilding2 aria-hidden="true" />
+    <Link
+      href={hotelDetailHref(hotel, search)}
+      className="hotel-result-card"
+      aria-label={`مشاهده اطلاعات ${hotel.name}`}
+    >
+      <article>
+        <div
+          className="hotel-result-image"
+          style={{ backgroundImage: `url(${JSON.stringify(resolveHotelImage(hotel))})` }}
+        >
+          <span className="hotel-stars" aria-label={`${hotel.stars} ستاره`}>
+            {Array.from({ length: hotel.stars }, (_, index) => (
+              <LuStar key={index} aria-hidden="true" />
+            ))}
+          </span>
+          <span className="available-room-count">
+            {numberFormatter.format(hotel.matchingRoomCount)} اتاق مطابق جستجو
+          </span>
         </div>
 
-        <p className="hotel-result-address">
-          <LuMapPin aria-hidden="true" />
-          {hotel.address}
-        </p>
+        <div className="hotel-result-body">
+          <div className="hotel-result-heading">
+            <div>
+              <span>{hotel.province?.name || "ایران"}</span>
+              <h3>{hotel.name}</h3>
+            </div>
+            <LuBuilding2 aria-hidden="true" />
+          </div>
 
-        <div className="hotel-amenity-list" aria-label="امکانات هتل">
-          {hotel.amenities.slice(0, 3).map((amenity) => (
-            <span key={amenity.id}>
-              <LuCheck aria-hidden="true" />
-              {amenity.title}
+          <p className="hotel-result-address">
+            <LuMapPin aria-hidden="true" />
+            {hotel.address}
+          </p>
+
+          <div className="hotel-amenity-list" aria-label="امکانات هتل">
+            {hotel.amenities.slice(0, 3).map((amenity) => (
+              <span key={amenity.id}>
+                <LuCheck aria-hidden="true" />
+                {amenity.title}
+              </span>
+            ))}
+            {hotel.amenities.length > 3 && (
+              <span>+{numberFormatter.format(hotel.amenities.length - 3)} امکان دیگر</span>
+            )}
+          </div>
+
+          <div className="hotel-result-footer">
+            <div>
+              <small>شروع قیمت هر شب</small>
+              <strong>
+                {hotel.startingPrice === null
+                  ? "تماس بگیرید"
+                  : `${priceFormatter.format(hotel.startingPrice)} تومان`}
+              </strong>
+            </div>
+            <span className="hotel-card-cta">
+              مشاهده هتل
+              <LuArrowLeft aria-hidden="true" />
             </span>
-          ))}
-          {hotel.amenities.length > 3 && (
-            <span>+{numberFormatter.format(hotel.amenities.length - 3)} امکان دیگر</span>
-          )}
-        </div>
-
-        <div className="hotel-result-footer">
-          <div>
-            <small>شروع قیمت هر شب</small>
-            <strong>
-              {hotel.startingPrice === null
-                ? "تماس بگیرید"
-                : `${priceFormatter.format(hotel.startingPrice)} تومان`}
-            </strong>
           </div>
-          <Link href="/login">انتخاب اتاق</Link>
         </div>
-      </div>
-    </article>
+      </article>
+    </Link>
   );
 }
 
@@ -594,7 +619,11 @@ export default function AdvancedHotelSearch() {
 
               <div className="hotel-result-grid">
                 {searchResult.hotels.map((hotel) => (
-                  <HotelResultCard key={hotel.id} hotel={hotel} />
+                  <HotelResultCard
+                    key={hotel.id}
+                    hotel={hotel}
+                    search={submittedFilters}
+                  />
                 ))}
               </div>
 

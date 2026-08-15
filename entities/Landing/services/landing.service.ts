@@ -1,13 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type {
   ApiResponse,
+  HotelDetailParams,
+  HotelDetailResult,
   HotelSearchParams,
   HotelSearchResult,
   LandingFilters,
 } from "../types/landing.types";
-
-export const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api/v1";
+import { API_BASE_URL } from "@/shared/configs/api";
 
 export const landingAPI = createApi({
   reducerPath: "landingAPI",
@@ -29,10 +29,17 @@ export const landingAPI = createApi({
         },
       }),
     }),
+    getLandingHotel: builder.query<ApiResponse<HotelDetailResult>, HotelDetailParams>({
+      query: ({ slug, ...params }) => ({
+        url: `/landing/hotels/${encodeURIComponent(slug)}`,
+        params,
+      }),
+    }),
   }),
 });
 
 export const {
   useGetLandingFiltersQuery,
+  useGetLandingHotelQuery,
   useLazySearchLandingHotelsQuery,
 } = landingAPI;

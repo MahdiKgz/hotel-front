@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { RegisterFormValues } from "../types/auth.types";
 import { toast } from "react-toastify";
 import { useRegisterMutation } from "@/entities/User/services/auth.service";
+import { getPostAuthRedirect } from "@/shared/configs/authRedirect";
 
 export default function useRegister() {
   const methods = useForm<RegisterFormValues>({
@@ -23,7 +24,7 @@ export default function useRegister() {
 
         sessionStorage.setItem("authToken", result.data.token);
         reset();
-        window.location.href = "/dashboard";
+        window.location.href = getPostAuthRedirect();
         return;
       }
     } catch (err) {

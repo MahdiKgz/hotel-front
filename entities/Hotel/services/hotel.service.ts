@@ -1,10 +1,11 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
+import { API_BASE_URL } from "@/shared/configs/api";
 
 export const hotelAPI = createApi({
   reducerPath: "hotelAPI",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4000/api/v1",
+    baseUrl: API_BASE_URL,
     prepareHeaders: (headers) => {
       const token = sessionStorage.getItem("authToken");
       if (token) {
@@ -125,6 +126,17 @@ export const hotelAPI = createApi({
       }),
       providesTags: ["reserves"],
     }),
+    getMyReservations: builder.query({
+      query: () => "/reserve/me",
+      providesTags: ["reserves"],
+    }),
+    cancelMyReservation: builder.mutation({
+      query: (reservationId) => ({
+        url: `/reserve/me/${reservationId}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["reserves", "rooms"],
+    }),
     cancelReserve: builder.mutation({
       query: (roomId) => ({
         url: `/reserve/${roomId}`,
@@ -176,7 +188,9 @@ export const {
   useUploadCoverMutation,
   useUploadImagesMutation,
   useGetReservesQuery,
+  useGetMyReservationsQuery,
   useCreateReserveMutation,
+  useCancelMyReservationMutation,
   useCancelReserveMutation,
   useGetHotelAmenitiesQuery,
   useCreateHotelAmenitiesMutation,

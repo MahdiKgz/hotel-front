@@ -5,6 +5,7 @@ import {
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { getPostAuthRedirect } from "@/shared/configs/authRedirect";
 
 export default function useLogin() {
   const [mode, setMode] = useState<"password" | "otp">("otp");
@@ -21,7 +22,7 @@ export default function useLogin() {
         : { phone: "", otp: "" },
       { keepValues: true },
     );
-  }, [mode, methods]);
+  }, [mode, reset]);
 
   const {
     handleSubmit,
@@ -43,7 +44,7 @@ export default function useLogin() {
         const { data: verifyOtpResponse } = await verifyOTP(data).unwrap();
         toast.success("ورود موفقیت آمیز بود. خوش آمدید");
         sessionStorage.setItem("authToken", verifyOtpResponse.token);
-        window.location.href = "/dashboard";
+        window.location.href = getPostAuthRedirect();
       } catch (err) {
         if (err.data.message === "Wrong or expired OTP") {
           toast.error("رمز یکبار مصرف منقضی شده یا اشتباه است");
@@ -60,7 +61,7 @@ export default function useLogin() {
         const { data: loginResponse } = await login(data).unwrap();
         toast.success("ورود موفقیت آمیز بود. خوش آمدید");
         sessionStorage.setItem("authToken", loginResponse.token);
-        window.location.href = "/dashboard";
+        window.location.href = getPostAuthRedirect();
       } catch (err) {
         if (err.data.message === "User not found !!") {
           toast.error("کاربری با این شماره تلفن پیدا نشد");

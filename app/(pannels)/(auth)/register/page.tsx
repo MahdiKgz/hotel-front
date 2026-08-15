@@ -2,7 +2,17 @@ import RegisterForm from "@/features/register/ui/RegisterForm";
 import Link from "next/link";
 import { LuUserPlus } from "react-icons/lu";
 
-export default function Register() {
+interface RegisterPageProps {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+}
+
+export default async function Register({ searchParams }: RegisterPageProps) {
+  const query = await searchParams;
+  const redirect = Array.isArray(query.redirect) ? query.redirect[0] : query.redirect;
+  const loginHref = redirect
+    ? `/login?redirect=${encodeURIComponent(redirect)}`
+    : "/login";
+
   return (
     <div className="auth-card">
       <div className="auth-card-icon"><LuUserPlus /></div>
@@ -14,7 +24,7 @@ export default function Register() {
       <RegisterForm />
       <div className="auth-switch-link">
         <span>قبلاً ثبت‌نام کرده‌اید؟</span>
-        <Link href="/login">ورود به حساب</Link>
+        <Link href={loginHref}>ورود به حساب</Link>
       </div>
     </div>
   );

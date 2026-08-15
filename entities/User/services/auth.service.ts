@@ -2,11 +2,12 @@ import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import { clearUserProfile, setUserProfile } from "../slices/Profile.slice";
 import { toast } from "react-toastify";
+import { API_BASE_URL } from "@/shared/configs/api";
 
 export const authAPI = createApi({
   reducerPath: "authAPI",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4000/api/v1",
+    baseUrl: API_BASE_URL,
     prepareHeaders: (headers, { getState }) => {
       const token =
         (getState() as any).auth?.token || sessionStorage.getItem("authToken");

@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { API_BASE_URL } from "@/shared/configs/api";
 
 export const reportAPI = createApi({
   reducerPath: "reportAPI",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4000/api/v1",
+    baseUrl: API_BASE_URL,
     prepareHeaders: (headers) => {
       const token = sessionStorage.getItem("authToken");
       if (token) {

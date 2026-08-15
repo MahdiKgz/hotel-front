@@ -58,6 +58,12 @@ export interface LandingRoom {
   capacity: number;
   price: number;
   status: "EMPTY" | "RESERVED" | "MAINTAIN";
+  bookType?: "DAILY" | "WEEKLY" | "MONTHLY";
+  bathService?: number;
+  balcony?: number;
+  geoDirection?: "NORTH" | "SOUTH" | "EAST" | "WEST";
+  kitchen?: "YES" | "NO";
+  description?: string | null;
 }
 
 export interface LandingHotel {
@@ -97,4 +103,20 @@ export interface HotelSearchResult {
     totalPages: number;
   };
   activeFilters: HotelSearchParams;
+}
+
+export interface HotelDetailParams {
+  slug: string;
+  checkIn?: string;
+  checkOut?: string;
+  capacity?: number;
+}
+
+export interface HotelDetailResult {
+  hotel: LandingHotel;
+  availability: {
+    checkIn: string | null;
+    checkOut: string | null;
+    capacity: number;
+  };
 }
