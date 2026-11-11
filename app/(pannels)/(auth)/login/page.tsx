@@ -23,6 +23,9 @@ export default async function Login({ searchParams }: LoginPageProps) {
       </div>
       <LoginForm />
       <div className="auth-switch-link">
+        <Link href="/forgot-password">رمز عبور را فراموش کرده‌اید؟</Link>
+      </div>
+      <div className="auth-switch-link">
         <span>هنوز حساب کاربری ندارید؟</span>
         <Link href={registerHref}>ساخت حساب جدید</Link>
       </div>

@@ -4,6 +4,7 @@ interface ProfileProps {
   id: number;
   fullName: string;
   email: string | null;
+  emailVerified: boolean;
   phone: string;
   address: string | null;
   avatar: string | null;
@@ -15,6 +16,7 @@ const initialState: ProfileProps = {
   id: 0,
   fullName: "",
   email: null,
+  emailVerified: false,
   phone: "",
   address: null,
   avatar: null,

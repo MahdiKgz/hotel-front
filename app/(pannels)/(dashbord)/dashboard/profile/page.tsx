@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import EmailVerification from "@/features/profile/ui/EmailVerification";
 import ProfileForm from "@/features/profile/ui/ProfileForm";
 import UploadUserAvatar from "@/features/profile/ui/UploadUserAvatar";
 import ResetPasswordModal from "@/features/profile/ui/ResetPasswordModal";
@@ -25,6 +26,7 @@ function ProfilePage() {
         </Button>
       </div>
       <ProfileForm />
+      <EmailVerification />
     </div>
   );
 }

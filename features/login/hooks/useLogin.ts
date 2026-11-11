@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 import { getPostAuthRedirect } from "@/shared/configs/authRedirect";
 
 export default function useLogin() {
-  const [mode, setMode] = useState<"password" | "otp">("otp");
+  const [mode, setMode] = useState<"password" | "otp">("password");
 
   const methods = useForm({
     mode: "onBlur",

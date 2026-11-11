@@ -29,7 +29,7 @@ function LoginForm() {
         ) : (
           <OTPMethodLogin methods={methods} />
         )}
-        <Button
+        {process.env.NODE_ENV !== "production" && process.env.NEXT_PUBLIC_ENABLE_DEMO_SMS_OTP === "true" && <Button
           type="link"
           onClick={() =>
             mode === "password" ? setMode("otp") : setMode("password")
@@ -38,7 +38,7 @@ function LoginForm() {
           className="auth-method-button"
         >
           {mode === "password" ? "ورود با رمز یکبار مصرف" : "ورود با رمز عبور"}
-        </Button>
+        </Button>}
         <Button
           className="auth-submit-button"
           size="large"

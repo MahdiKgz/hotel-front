@@ -84,6 +84,19 @@ export const authAPI = createApi({
       }),
       invalidatesTags: ["me"],
     }),
+    forgotPassword: builder.mutation<{ message: string }, { email: string }>({
+      query: (body) => ({ url: "/auth/forgot-password", method: "POST", body }),
+    }),
+    recoverPassword: builder.mutation<{ message: string }, { token: string; password: string; confirmPassword: string }>({
+      query: (body) => ({ url: "/auth/recover-password", method: "POST", body }),
+    }),
+    verifyEmail: builder.mutation<{ message: string }, { token: string }>({
+      query: (body) => ({ url: "/auth/verify-email", method: "POST", body }),
+      invalidatesTags: (_result, error) => error ? [] : ["me"],
+    }),
+    requestEmailVerification: builder.mutation<{ message: string }, { password: string }>({
+      query: (body) => ({ url: "/auth/request-email-verification", method: "POST", body }),
+    }),
     resetPassword: builder.mutation({
       query: (payload) => ({
         url: "/auth/reset-password",
@@ -118,6 +131,10 @@ export const {
   useUploadAvatarMutation,
   useUpdateProfileMutation,
   useResetPasswordMutation,
+  useForgotPasswordMutation,
+  useRecoverPasswordMutation,
+  useVerifyEmailMutation,
+  useRequestEmailVerificationMutation,
   useGetAllUsersQuery,
   useGetOneUserQuery,
   useBanUserMutation,
